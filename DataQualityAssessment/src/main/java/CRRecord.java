@@ -139,6 +139,16 @@ public class CRRecord extends DataRecord{
 			this.crtype.setMandatory(true);
 		}
 		
+		//set Conditionals according to ConsentIndicator
+		if (this.consentindicator.getData().toString() == "Y" || 
+				this.consentindicator.getData().toString() == "N")
+		{
+			this.consenteffectivedate.setMandatory(true);
+			this.consentenddate.setMandatory(true);
+			this.consentid.setMandatory(true);
+			this.consentreceiveddate.setMandatory(true);
+		}
+		
 		this.elements.add(crid);
 		this.elements.add(crcategory);
 		this.elements.add(firstname);

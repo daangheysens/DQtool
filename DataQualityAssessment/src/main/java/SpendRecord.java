@@ -199,6 +199,14 @@ public class SpendRecord extends DataRecord
 			this.crzipcode.setMandatory(true);
 			this.crspeciality.setMandatory(true);
 		}
+		
+		//set conditionals for Consent
+		if (this.consentindicator.getData().toString() == "Y" || 
+				this.consentindicator.getData().toString() == "N")
+		{
+			this.consentid.setMandatory(true);
+			this.consentreceiveddate.setMandatory(true);
+		}
 
 		this.elements.add(spendid);
 		this.elements.add(division);

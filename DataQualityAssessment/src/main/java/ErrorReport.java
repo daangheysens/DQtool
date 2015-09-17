@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import Elements.Country;
 import Elements.DataElement;
+import Elements.Division;
 
 /**
  * 
@@ -27,33 +29,56 @@ public class ErrorReport {
 	public ErrorReport(LocalDataFile f)
 	{
 		this.file = f;
-		this.runReport(file);
+		this.checkIsolatedErrors(file);
 	}
 
 
-	public void runReport(LocalDataFile ldf)
+	public void checkIsolatedErrors(LocalDataFile ldf)
 	{
 
 		LinkedList<DataRecord> records = ldf.getRecords();
 		for (DataRecord r : records)
 		{
 			boolean rejected = false;
-			
+
 			LinkedList<DataElement> fields = r.getFields();
 			for (DataElement d : fields)
 			{
-				if (d.getMandatory())
+				if (d instanceof Country)
+				{
+					if (d.getData().toString() != ldf.getAffiliate().getCountry())
 					{
-					//reevaluate isEmpty() 	
-					if (d.getData() == null || d.getData().toString().isEmpty()) 
-					 	{
-					 		ErrorRecord error = new ErrorRecord(403, ldf.getAffiliate(),
-									d.getName(), d.getData().toString());
-							errors.add(error);
-							r.didNotLoad();
-							rejected = true;
-					 	}
+						ErrorRecord error = new ErrorRecord(406, ldf.getAffiliate(),
+								d.getName(), d.getData().toString());
+						errors.add(error);
+						r.didNotLoad();
+						this.rejectedRecords++;
 					}
+				}
+				if (d instanceof Division)
+				{
+					if (d.getData().toString() != ldf.getAffiliate().getDivision())
+					{
+						ErrorRecord error = new ErrorRecord(407, ldf.getAffiliate(),
+								d.getName(), d.getData().toString());
+						errors.add(error);
+						r.didNotLoad();
+						this.rejectedRecords++;
+					}
+				}
+				
+				if (d.getMandatory())
+				{
+					//TODO reevaluate isEmpty() 	
+					if (d.getData() == null || d.getData().toString().isEmpty()) 
+					{
+						ErrorRecord error = new ErrorRecord(403, ldf.getAffiliate(),
+								d.getName(), d.getData().toString());
+						errors.add(error);
+						r.didNotLoad();
+						this.rejectedRecords++;
+					}
+				}
 				if (d.getLov())
 				{
 					String lov = d.getData().toString().trim();
@@ -65,7 +90,7 @@ public class ErrorReport {
 									d.getName(), d.getData().toString());
 							errors.add(error);
 							r.didNotLoad();
-							rejected = true;
+							this.rejectedRecords++;
 						}
 					}
 					else if (Run.getRepository().isLocalLov((file.getAffiliate().getAffiliateName() + 
@@ -78,7 +103,7 @@ public class ErrorReport {
 									d.getName(), d.getData().toString());
 							errors.add(error);
 							r.didNotLoad();
-							rejected = true;
+							this.rejectedRecords++;
 						}
 					}
 					else 
@@ -106,7 +131,7 @@ public class ErrorReport {
 								d.getName(), d.getData().toString());
 						errors.add(error);
 						r.didNotLoad();
-						rejected = true;
+						this.rejectedRecords++;
 					}
 				}
 				else if (d.getNumeric())
@@ -117,12 +142,10 @@ public class ErrorReport {
 								d.getName(), d.getData().toString());
 						errors.add(error);
 						r.didNotLoad();
-						rejected = true;
+						this.rejectedRecords++;
 					}
 				}
 			}
-			if (rejected == true)
-				this.rejectedRecords++;
 		}
 	}
 
@@ -130,7 +153,7 @@ public class ErrorReport {
 	{
 		return this.errors;
 	}
-	
+
 	public int getRejectedRecords()
 	{
 		return this.rejectedRecords;
