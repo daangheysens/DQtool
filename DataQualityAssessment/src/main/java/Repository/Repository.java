@@ -12,6 +12,7 @@ public class Repository
 	private HashMap<String, HashSet<String>> localLovs = new HashMap<String, HashSet<String>>();
 	private HashMap<String, HashSet<String>> globalLovs = new HashMap<String, HashSet<String>>();
 	private HashMap<Integer,String> errCodeMap =  new HashMap<Integer,String>();
+	private HashSet<String> integrationAffiliates = new HashSet<String>();
 
 	public Repository() 
 	{
@@ -5808,6 +5809,44 @@ public class Repository
 		this.errCodeMap.put(1298, "Invalid Spend Consent");
 	}
 
+	private void fillIntegrationAffiliates()
+	{
+		this.integrationAffiliates.add("PLSZ");
+		this.integrationAffiliates.add("ROAL");
+		this.integrationAffiliates.add("RUAL");
+		this.integrationAffiliates.add("BGAL");
+		this.integrationAffiliates.add("HRAL");
+		this.integrationAffiliates.add("HRPH");
+		this.integrationAffiliates.add("HRSZ");
+		this.integrationAffiliates.add("SIAL");
+		this.integrationAffiliates.add("BEAL");
+		this.integrationAffiliates.add("BEPH");
+		this.integrationAffiliates.add("BESZ");
+		this.integrationAffiliates.add("NLAL");
+		this.integrationAffiliates.add("NLPH");
+		this.integrationAffiliates.add("NlSZ");
+		this.integrationAffiliates.add("ATSZ");
+		this.integrationAffiliates.add("CZAL");
+		this.integrationAffiliates.add("GRAL");
+		this.integrationAffiliates.add("HUPH");
+		this.integrationAffiliates.add("TRAL");
+		this.integrationAffiliates.add("TRPH");
+		this.integrationAffiliates.add("PTSZ");
+		this.integrationAffiliates.add("DKAL");
+		this.integrationAffiliates.add("FIAL");
+		this.integrationAffiliates.add("NOAL");
+		this.integrationAffiliates.add("SEAL");
+		this.integrationAffiliates.add("BGPH");
+		this.integrationAffiliates.add("CYPH");
+		this.integrationAffiliates.add("EEPH");
+		this.integrationAffiliates.add("ITAL");
+		this.integrationAffiliates.add("LVPH");
+		this.integrationAffiliates.add("LTPH");
+		this.integrationAffiliates.add("MTPH");
+		this.integrationAffiliates.add("RSPH");
+		this.integrationAffiliates.add("SIPH");
+	}
+	
 	public Affiliate searchAffiliate(String aff)
 	{
 		return this.affiliates.get(aff);
@@ -5852,5 +5891,9 @@ public class Repository
 		return this.errCodeMap.get(code);
 	}
 
+	public HashSet<String> getIntegrationAffiliates()
+	{
+		return this.integrationAffiliates;
+	}
 
 }

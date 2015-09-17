@@ -47,6 +47,77 @@ public class Run {
 				ldf.generateErrorReport();
 			}
 		}
+		
+		
+		//CHECK SPEND - CR link
+		for (LocalDataFile ldf : files)
+		{
+			if (ldf instanceof SpendFile)
+			{
+				SpendFile spendFile = (SpendFile) ldf;
+				
+				if (repo.getIntegrationAffiliates().contains(spendFile.getAffiliate().getAffiliateName()))
+				{
+					boolean found = false;	
+					LocalDataFile crFile = null;
+					
+					Iterator<LocalDataFile> it = files.iterator();
+					
+				    while(it.hasNext() && !found)
+				    {
+				       LocalDataFile fileToCheck = it.next();
+				       if (fileToCheck.getAffiliate() == spendFile.getAffiliate())
+				       {
+				    	   if (fileToCheck instanceof CRFile)
+				    	   {
+				    		   crFile = fileToCheck;
+				    		   found = true;
+				    	   }	 
+				       }
+				       //loop ends
+					}
+				    
+				    if (found)
+				    {
+				    	for (DataRecord spend : spendFile.getRecords())
+				    	{
+				    		SpendRecord record = (SpendRecord) spend;
+				    		String localcrid = record.getLocalCRID().getData().toString();
+				    		boolean foundId = false;
+				    		
+				    		Iterator<DataRecord> ite = crFile.getRecords().iterator();
+							
+						    while(ite.hasNext() && !foundId)
+						    {
+						       CRRecord fileToCheck = (CRRecord) ite.next();
+						       if (fileToCheck.getLocalCRID1().getData().toString() == localcrid)
+						       {
+						    	   foundId = true;	 
+						       }
+						       else if (fileToCheck.getLocalCRID2().getData().toString() == localcrid)
+						       {
+						    	   foundId = true;	 
+						       }
+						       else if (fileToCheck.getLocalCRID3().getData().toString() == localcrid)
+						       {
+						    	   foundId = true;	 
+						       }
+						       //loop ends
+							}
+						    
+						    if (!foundId)
+						    {
+						    	ErrorRecord error = new ErrorRecord(412, ldf.getAffiliate(),
+										record.getLocalCRID().getName(),
+										record.getLocalCRID().getData().toString());
+						    	ldf.getErrorReport().getErrors().add(error);
+						    }
+				    	}
+				    }
+				    
+				}
+			}
+		}
 
 
 		//PRINT T_FILE_MONITOR EXRTRACT

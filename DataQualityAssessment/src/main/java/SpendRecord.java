@@ -304,7 +304,16 @@ public class SpendRecord extends DataRecord
 	{
 		return this.file.getAffiliate();
 	}
-
+	
+	public IdNumber getLocalCRID()
+	{
+		return this.localcrid;
+	}
+	
+	public IdType getLocalCRIDType()
+	{
+		return this.localcridtype;
+	}
 
 
 

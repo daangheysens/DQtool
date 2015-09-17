@@ -46,7 +46,7 @@ public class ErrorReport {
 			{
 				if (d instanceof Country)
 				{
-					if (d.getData().toString() != ldf.getAffiliate().getCountry())
+					if (!d.getData().toString().equals(ldf.getAffiliate().getCountry().toString()))
 					{
 						ErrorRecord error = new ErrorRecord(406, ldf.getAffiliate(),
 								d.getName(), d.getData().toString());
@@ -57,7 +57,7 @@ public class ErrorReport {
 				}
 				if (d instanceof Division)
 				{
-					if (d.getData().toString() != ldf.getAffiliate().getDivision())
+					if (!d.getData().toString().equals(ldf.getAffiliate().getDivision().toString()))
 					{
 						ErrorRecord error = new ErrorRecord(407, ldf.getAffiliate(),
 								d.getName(), d.getData().toString());

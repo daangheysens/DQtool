@@ -297,5 +297,35 @@ public class CRRecord extends DataRecord{
 		return this.file.getAffiliate();
 	}
 	
+	public IdNumber getLocalCRID1()
+	{
+		return this.idnumber_1;
+	}
+	
+	public IdNumber getLocalCRID2()
+	{
+		return this.idnumber_2;
+	}
+	
+	public IdNumber getLocalCRID3()
+	{
+		return this.idnumber_3;
+	}
+	
+	public IdType getLocalCRIDType1()
+	{
+		return this.idtype_1;
+	}
+	
+	public IdType getLocalCRIDType2()
+	{
+		return this.idtype_2;
+	}
+	
+	public IdType getLocalCRIDType3()
+	{
+		return this.idtype_3;
+	}
+	
 
 }
