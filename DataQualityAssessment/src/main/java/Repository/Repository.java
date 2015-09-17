@@ -11,12 +11,14 @@ public class Repository
 	private HashMap<String, Affiliate> affiliates = new HashMap<String, Affiliate>();
 	private HashMap<String, HashSet<String>> localLovs = new HashMap<String, HashSet<String>>();
 	private HashMap<String, HashSet<String>> globalLovs = new HashMap<String, HashSet<String>>();
+	private HashMap<Integer,String> errCodeMap =  new HashMap<Integer,String>();
 
 	public Repository() 
 	{
 		this.fillAffiliates();
 		this.fillLocalLovs();
 		this.fillGlobalLovs();
+		this.fillErrCodes();
 	}
 
 	private void fillAffiliates()
@@ -5774,6 +5776,37 @@ public class Repository
 		this.globalLovs.put("ynindicator", ynindicator);
 		this.globalLovs.put("officialidflag", officialidflag);
 	}
+	
+	private void fillErrCodes()
+	{
+		this.errCodeMap.put(412, "Related CR Profile Missing in GXR");
+		this.errCodeMap.put(414, "Related Event Missing in GXR");
+		this.errCodeMap.put(415, "Related Contract Missing in GXR");
+		this.errCodeMap.put(416, "Related Product Missing in GXR");
+		this.errCodeMap.put(417, "HCP Attendee Count Mismatch");
+		this.errCodeMap.put(418, "Related CR Profile Inactive in GXR");
+		this.errCodeMap.put(419, "Related CR Address Missing in GXR");
+		this.errCodeMap.put(420, "Company CD Error");
+		this.errCodeMap.put(413, "Event without Spend");
+		this.errCodeMap.put(409, "Addr file missing CR reference");
+		this.errCodeMap.put(410, "CR Master missing CR reference");
+		this.errCodeMap.put(411, "Duplicate CR");
+		this.errCodeMap.put(401, "RI Error");
+		this.errCodeMap.put(402, "Format Error");
+		this.errCodeMap.put(403, "Not Null Error");
+		this.errCodeMap.put(404, "Business Key Error");
+		this.errCodeMap.put(405, "CR Catg Error");
+		this.errCodeMap.put(406, "Country CD Error");
+		this.errCodeMap.put(407, "Division CD Error");
+		this.errCodeMap.put(408, "Source CD Error");
+		this.errCodeMap.put(1267, "172");
+		this.errCodeMap.put(1279, "Local Currency Error");
+		this.errCodeMap.put(1280, "Event Start Date Error");
+		this.errCodeMap.put(1289, "NCC CD to Spend Purpose Map Error");
+		this.errCodeMap.put(1296, "Consent Date Invalid");
+		this.errCodeMap.put(1297, "Invalid CR Consent");
+		this.errCodeMap.put(1298, "Invalid Spend Consent");
+	}
 
 	public Affiliate searchAffiliate(String aff)
 	{
@@ -5812,6 +5845,11 @@ public class Repository
 			return true;
 		}
 		return false;
+	}
+	
+	public String getErrorDescription(int code)
+	{
+		return this.errCodeMap.get(code);
 	}
 
 

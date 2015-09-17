@@ -22,6 +22,7 @@ public class ErrorReport {
 
 	private LinkedList<ErrorRecord> errors = new LinkedList<ErrorRecord>();
 	private LocalDataFile file;
+	private int rejectedRecords = 0;
 
 	public ErrorReport(LocalDataFile f)
 	{
@@ -36,6 +37,8 @@ public class ErrorReport {
 		LinkedList<DataRecord> records = ldf.getRecords();
 		for (DataRecord r : records)
 		{
+			boolean rejected = false;
+			
 			LinkedList<DataElement> fields = r.getFields();
 			for (DataElement d : fields)
 			{
@@ -47,6 +50,8 @@ public class ErrorReport {
 					 		ErrorRecord error = new ErrorRecord(403, ldf.getAffiliate(),
 									d.getName(), d.getData().toString());
 							errors.add(error);
+							r.didNotLoad();
+							rejected = true;
 					 	}
 					}
 				if (d.getLov())
@@ -59,6 +64,8 @@ public class ErrorReport {
 							ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
 									d.getName(), d.getData().toString());
 							errors.add(error);
+							r.didNotLoad();
+							rejected = true;
 						}
 					}
 					else if (Run.getRepository().isLocalLov((file.getAffiliate().getAffiliateName() + 
@@ -70,6 +77,8 @@ public class ErrorReport {
 							ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
 									d.getName(), d.getData().toString());
 							errors.add(error);
+							r.didNotLoad();
+							rejected = true;
 						}
 					}
 					else 
@@ -96,6 +105,8 @@ public class ErrorReport {
 						ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
 								d.getName(), d.getData().toString());
 						errors.add(error);
+						r.didNotLoad();
+						rejected = true;
 					}
 				}
 				else if (d.getNumeric())
@@ -105,15 +116,24 @@ public class ErrorReport {
 						ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
 								d.getName(), d.getData().toString());
 						errors.add(error);
+						r.didNotLoad();
+						rejected = true;
 					}
 				}
 			}
+			if (rejected == true)
+				this.rejectedRecords++;
 		}
 	}
 
 	public LinkedList<ErrorRecord> getErrors()
 	{
 		return this.errors;
+	}
+	
+	public int getRejectedRecords()
+	{
+		return this.rejectedRecords;
 	}
 
 }

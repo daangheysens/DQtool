@@ -12,17 +12,10 @@ import Repository.Affiliate;
  *
  */
 public class SpendFile extends LocalDataFile{
-	
-	private LinkedList<SpendRecord> records;
-	
+		
 	public SpendFile(Affiliate affiliate)
 	{
 		super(affiliate);
-	}
-	
-	public void addRecord(SpendRecord record)
-	{
-		records.add(record);
 	}
 	
 }

@@ -34,8 +34,8 @@ public class LoadFiles {
 		//Affiliates
 		HashSet<String> filesToLoad = new HashSet<String>();
 		//all filenames to be added here
-		filesToLoad.add("CR_PortalMassUpload_ES_AL_050_Milestone2.xlsx/"); 
-		filesToLoad.add("Spend_PortalMassUpload_NO_PH_050_Milestone2.xlsx/");
+		filesToLoad.add("CR_PortalMassUpload_ES_AL_008_Milestone2.xlsx/"); 
+		filesToLoad.add("Spend_PortalMassUpload_NO_PH_036_Milestone2.xlsx/");
 		// ...
 		// ...
 		// ...
@@ -50,7 +50,7 @@ public class LoadFiles {
 				StringBuilder buildPath = new StringBuilder();
 				buildPath.append(path);
 				buildPath.append(f);
-				
+
 				StringBuilder affName = new StringBuilder();
 
 				if (f.substring(0,1).matches("C"))
@@ -59,8 +59,15 @@ public class LoadFiles {
 					{
 						affName.append(f.substring(20,22));
 						affName.append(f.substring(23,25));
-						files.add(this.loadCRs(buildPath.toString(), this.repo.searchAffiliate(affName.toString())));
-						System.out.println("File added");
+						if (this.repo.searchAffiliate(affName.toString()) != null)
+						{
+							files.add(this.loadCRs(buildPath.toString(), 
+									this.repo.searchAffiliate(affName.toString())));
+						}
+						else
+						{
+							System.out.println(f + " is an invalid filename");
+						}
 
 					}
 					catch (Exception ex)
@@ -76,8 +83,16 @@ public class LoadFiles {
 						affName.append(f.substring(23,25));
 						affName.append(f.substring(26,28));
 						
-						files.add(this.loadSpends(buildPath.toString(), this.repo.searchAffiliate(affName.toString())));
-						System.out.println("File added");
+						Affiliate thisAffiliate = this.repo.searchAffiliate(affName.toString());
+						
+						if (thisAffiliate != null)
+						{
+							files.add(this.loadSpends(buildPath.toString(), this.repo.searchAffiliate(affName.toString())));
+						}
+						else
+						{
+							System.out.println(f + " is an invalid filename");
+						}
 					}
 					catch (Exception ex)
 					{
@@ -96,44 +111,75 @@ public class LoadFiles {
 	//CRMASSUPLOAD
 	private LocalDataFile loadCRs(String fileName, Affiliate affiliate) throws FileNotFoundException, IOException
 	{	
-		CRFile newFile = new CRFile(affiliate);
+		if (affiliate == null)
+		{
+		System.out.println("ttt");
+		throw new IOException();
+		}
+	
+	CRFile newFile = new CRFile(affiliate);
 
-		File myFile = new File(fileName); 
-		FileInputStream fis = new FileInputStream(myFile); 
-		XSSFWorkbook myWorkBook = new XSSFWorkbook (fis); 
+	File myFile = new File(fileName); 
+	FileInputStream fis = new FileInputStream(myFile); 
+	XSSFWorkbook myWorkBook = new XSSFWorkbook (fis); 
 
-		// Return third sheet from the XLSX workbook 
+	// Return third sheet from the XLSX workbook 
+	try 
+	{
 		XSSFSheet mySheet = myWorkBook.getSheetAt(2);
-		for(int rowNr = 1; rowNr < 51; rowNr++) 
-		{	
-			Row row = mySheet.getRow(rowNr);
-			LinkedList<Object> newRec = new LinkedList<Object>();
-			for(int cn=0; cn<130; cn++) 
+		Iterator ite = mySheet.rowIterator();
+		ite.next();
+		while(ite.hasNext())
+		{
+			try
 			{
-				// If the cell is missing from the file, generate a blank one
-				// (Works by specifying a MissingCellPolicy)
-				Cell cell = row.getCell(cn, Row.CREATE_NULL_AS_BLANK);
-				switch (cell.getCellType()) 
-				{ 
-				case Cell.CELL_TYPE_STRING: newRec.add(cell.getStringCellValue()); 
-				break; 
-				case Cell.CELL_TYPE_NUMERIC: newRec.add(cell.getNumericCellValue());
-				break; 
-				case Cell.CELL_TYPE_BOOLEAN: newRec.add(cell.getBooleanCellValue()); 
-				break; 
-				case Cell.CELL_TYPE_BLANK: newRec.add("");
-				break;
-				default : 
-				} 
+				Row row = (Row) ite.next();
+				LinkedList<Object> newRec = new LinkedList<Object>();
+				for(int cn = 0; cn<130; cn++) 
+				{
+					// If the cell is missing from the file, generate a blank one
+					// (Works by specifying a MissingCellPolicy)
+					Cell cell = row.getCell(cn, Row.CREATE_NULL_AS_BLANK);
+					switch (cell.getCellType()) 
+					{ 
+					case Cell.CELL_TYPE_STRING: newRec.add(cell.getStringCellValue()); 
+					break; 
+					case Cell.CELL_TYPE_NUMERIC: newRec.add(cell.getNumericCellValue());
+					break; 
+					case Cell.CELL_TYPE_BOOLEAN: newRec.add(cell.getBooleanCellValue()); 
+					break; 
+					case Cell.CELL_TYPE_BLANK: newRec.add("");
+					break;
+					default : 
+					} 
+				}
+				newFile.addRecord(new CRRecord(newRec, newFile));
+
 			}
-			newFile.addRecord(new CRRecord(newRec, newFile));
+			catch (Exception ex)
+			{
+				System.out.println("Fix iterator");
+			}
+			
 		}
 		return newFile;
 	}
+	catch (Exception ex)
+	{
+		System.out.println("Invalid file syntax for " + fileName);
+		throw new FileNotFoundException();
+	}
+}
 
 	//SPENDMASSUPLOAD
 	private LocalDataFile loadSpends(String fileName, Affiliate affiliate) throws FileNotFoundException, IOException
 	{
+		if (affiliate == null)
+			{
+			System.out.println("ttt");
+			throw new IOException();
+			}
+		
 		SpendFile newFile = new SpendFile(affiliate);
 
 		File myFile = new File(fileName); 
@@ -141,32 +187,51 @@ public class LoadFiles {
 		XSSFWorkbook myWorkBook = new XSSFWorkbook (fis); 
 
 		// Return third sheet from the XLSX workbook 
-		XSSFSheet mySheet = myWorkBook.getSheetAt(2);
-		for(int rowNr = 1; rowNr < 51; rowNr++) 
-		{	
-			Row row = mySheet.getRow(rowNr);
-			LinkedList<Object> newRec = new LinkedList<Object>();
-			for(int cn=0; cn<80; cn++) 
+		try 
+		{
+			XSSFSheet mySheet = myWorkBook.getSheetAt(2);
+			Iterator ite = mySheet.rowIterator();
+			ite.next();
+			while(ite.hasNext())
 			{
-				// If the cell is missing from the file, generate a blank one
-				// (Works by specifying a MissingCellPolicy)
-				Cell cell = row.getCell(cn, Row.CREATE_NULL_AS_BLANK);
-				switch (cell.getCellType()) 
-				{ 
-				case Cell.CELL_TYPE_STRING: newRec.add(cell.getStringCellValue()); 
-				break; 
-				case Cell.CELL_TYPE_NUMERIC: newRec.add(cell.getNumericCellValue());
-				break; 
-				case Cell.CELL_TYPE_BOOLEAN: newRec.add(cell.getBooleanCellValue()); 
-				break; 
-				case Cell.CELL_TYPE_BLANK: newRec.add("");
-				break;
-				default : 
-				} 
+				try
+				{
+					Row row = (Row) ite.next();
+					LinkedList<Object> newRec = new LinkedList<Object>();
+					for(int cn = 0; cn<80; cn++) 
+					{
+						// If the cell is missing from the file, generate a blank one
+						// (Works by specifying a MissingCellPolicy)
+						Cell cell = row.getCell(cn, Row.CREATE_NULL_AS_BLANK);
+						switch (cell.getCellType()) 
+						{ 
+						case Cell.CELL_TYPE_STRING: newRec.add(cell.getStringCellValue()); 
+						break; 
+						case Cell.CELL_TYPE_NUMERIC: newRec.add(cell.getNumericCellValue());
+						break; 
+						case Cell.CELL_TYPE_BOOLEAN: newRec.add(cell.getBooleanCellValue()); 
+						break; 
+						case Cell.CELL_TYPE_BLANK: newRec.add("");
+						break;
+						default : 
+						} 
+					}
+					newFile.addRecord(new SpendRecord(newRec, newFile));
+
+				}
+				catch (Exception ex)
+				{
+					System.out.println("Fix iterator");
+				}
+				
 			}
-			newFile.addRecord(new SpendRecord(newRec, newFile));
+			return newFile;
 		}
-		return newFile;
+		catch (Exception ex)
+		{
+			System.out.println("Invalid file syntax for " + fileName);
+			throw new FileNotFoundException();
+		}
 	}
 
 	public HashSet<LocalDataFile> getFiles()

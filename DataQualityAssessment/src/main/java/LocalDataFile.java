@@ -48,5 +48,10 @@ public abstract class LocalDataFile {
 	{
 		return this.records;
 	}
+	
+	public void addRecord(DataRecord record)
+	{
+		this.records.add(record);
+	}
 
 }

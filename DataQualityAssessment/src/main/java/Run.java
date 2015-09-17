@@ -27,73 +27,118 @@ public class Run {
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException
 	{
+		boolean generateErrReport = true;
+		boolean tErrAudit = true;
+		boolean tFileMonitor = false;
+
+
+		//LOAD FILES
 		LoadFiles load = new LoadFiles(repo);
 		if (load.getFiles() == null)
 			System.out.println("files kept in LoadFiles are empty");
 		HashSet<LocalDataFile> files = load.getFiles();
 
-		//generate ErrorReport
 
-
-
-
-		for (LocalDataFile ldf : files)
+		//GENERATE ERROR REPORTS
+		if (generateErrReport)
 		{
-			ldf.generateErrorReport();
+			for (LocalDataFile ldf : files)
+			{
+				ldf.generateErrorReport();
+			}
 		}
 
-		/*
-		for (LocalDataFile ldf : files)
-		{
-			try
-			{
-				CRFile blabla = (CRFile) ldf;
-				for (CRRecord grrr : blabla.getRecords())
-				{
-					StringBuilder sb = new StringBuilder();
-					for (DataElement dd : grrr.getFields())
-					{
-						sb.append(dd.getData().toString() + ", ");
-					}
-					System.out.println(sb.toString());
-				}
 
+		//PRINT T_FILE_MONITOR EXRTRACT
+		if (tFileMonitor)
+		{
+			try 
+			{
+				for (LocalDataFile f : files)
+				{
+					String type;
+					try
+					{
+						CRFile test = (CRFile) f;
+						type = "CR Master";
+					}
+					catch (Exception ex)
+					{
+						type = "Spend";
+					}
+					String div;
+					if (f.getAffiliate().getDivision() == "11")
+						div = "PH";
+					else if (f.getAffiliate().getDivision() == "14")
+						div = "SZ";
+					else 
+						div = "AL";
+
+					//print file specifics
+					System.out.println(",," + type + ",prtl," + f.getRecords().size() + ",," 
+							+ f.getAffiliate().getAffiliateName() + ",," + f.getErrorReport().getRejectedRecords());
+
+				}
 			}
 			catch (Exception ex)
 			{
-				System.out.println("did not work");
+				System.out.println("Error in T_ERR_AUDIT extract");
 			}
-		}*/
+		}
 
-		try
+
+		//PRINT T_ERR_AUDIT EXTRACT		
+		if (tErrAudit)
 		{
-			for (LocalDataFile f : files)
+			try
 			{
-				LinkedList<ErrorRecord> toPrint = f.getErrorReport().getErrors();
-				if(toPrint != null)
+				for (LocalDataFile f : files)
 				{
-					for (ErrorRecord rec : toPrint)
+					String type;
+					try
 					{
-						System.out.println(rec.getAffiliate().getAffiliateName());
-						System.out.println(rec.getErrorCode());
-						System.out.println(rec.getErrColumnName() + " - " + rec.getErrColumnValue());
+						CRFile test = (CRFile) f;
+						type = "T_CR";
+					}
+					catch (Exception ex)
+					{
+						type = "T_SPND";
+					}
+
+					String div;
+					if (f.getAffiliate().getDivision() == "11")
+						div = "PH";
+					else if (f.getAffiliate().getDivision() == "14")
+						div = "SZ";
+					else 
+						div = "AL";
+
+					LinkedList<ErrorRecord> toPrint = f.getErrorReport().getErrors();
+					if(toPrint != null)
+					{
+						for (ErrorRecord rec : toPrint)
+						{
+							System.out.println("Id,prtl," + rec.getAffiliate().getCountry() + "," + div
+									+ "," + getRepository().getErrorDescription(rec.getErrorCode()) + "," +
+									rec.getErrorCode() + "," + rec.getErrColumnName() + "," + rec.getErrColumnValue() +
+									"," + type);
+						}
 					}
 				}
 			}
+			catch (Exception ex)
+			{
+				System.out.println("Error in T_ERR_AUDIT extract");
+			}
 		}
-		catch (Exception ex)
-		{
-			System.out.println("Error in Printing");
-		}
+
+		//END MAIN
 	}
 
 	public static Repository getRepository()
 	{
 		return repo;
 	}
-
-
-
 }
 
 

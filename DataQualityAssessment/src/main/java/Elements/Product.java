@@ -16,7 +16,8 @@ public class Product extends DataElement {
 	{
 		super(dataField);
 		this.mandatory = false;
-		this.numeric = true;
+		//TODO
+		this.numeric = false;
 		this.date = false;
 		this.lov = false;
 		this.elementName = "Product";
