@@ -18,6 +18,7 @@ public class SpendAmount extends DataElement {
 		try 
 		{
 			double amount = Double.parseDouble((String) dataField);
+			this.dataField = amount;
 		}
 		catch (Exception ex) {}
 		this.mandatory = true;

@@ -44,11 +44,10 @@ public class ErrorReport {
 			LinkedList<DataElement> fields = r.getFields();
 			for (DataElement d : fields)
 			{
-				if (d.getIsNull() || d.getData().toString().equals(""))
+				if (d.getIsNull())
 				{
 					if (d.getMandatory())
 					{
-
 						ErrorRecord error = new ErrorRecord(403, ldf.getAffiliate(),
 								d.getName(), d.getData().toString());
 						errors.add(error);

@@ -14,7 +14,7 @@ public abstract class DataElement {
 	public DataElement(Object dataField)
 	{
 		this.dataField = dataField;
-		if (dataField.toString().isEmpty())
+		if (dataField.toString().isEmpty() || dataField.toString().equals(""))
 		{
 			isNull = true;
 		}

@@ -34,9 +34,9 @@ public class LoadFiles {
 		//Affiliates
 		HashSet<String> filesToLoad = new HashSet<String>();
 		//all filenames to be added here
-		filesToLoad.add("CR_PortalMassUpload_ES_AL_008_Milestone2.xlsx/"); 
-		filesToLoad.add("Spend_PortalMassUpload_NO_PH_036_Milestone2.xlsx/");
-		filesToLoad.add("CR_PortalMassUpload_RU_PH_Deadline1.xlsx/");
+		//filesToLoad.add("CR_PortalMassUpload_ES_AL_008_Milestone2.xlsx/"); 
+		//filesToLoad.add("Spend_PortalMassUpload_NO_PH_036_Milestone2.xlsx/");
+		//filesToLoad.add("CR_PortalMassUpload_RU_PH_Deadline1.xlsx/");
 		filesToLoad.add("Spend_PortalMassUpload_RU_PH_Deadline1.xlsx/");
 		// ...
 		// ...

@@ -129,11 +129,18 @@ public class SpendRecord extends DataRecord
 		this.payeename = new PayeeName(fields.get(21));
 		this.payingdivision = new Division(fields.get(22));
 		this.payingcountry = new Country(fields.get(23));
+		//TODO changed name
+		this.payingcountry.setName("payingcountry");
+		this.payingdivision.setName("payingdivision");
+		
 		this.crfirstname = new FirstName(fields.get(24));
 		this.crlastname = new LastName(fields.get(25));
 		this.craddressline1 = new AddressLine(fields.get(26));
 		this.crcity = new City(fields.get(27));
 		this.crcountry = new Country(fields.get(28));
+		//TODO changed name
+		this.crcountry.setName("crcountry");
+		
 		this.crzipcode = new ZipCode(fields.get(29));
 		this.crspeciality = new Specialty(fields.get(30));
 		this.spendponumber = new PONumber(fields.get(31));
@@ -149,6 +156,9 @@ public class SpendRecord extends DataRecord
 		this.payeestate_province = new StateProvinceRegionCounty(fields.get(41));
 		this.payeezip = new ZipCode(fields.get(42));
 		this.payeecountry = new Country(fields.get(43));
+		//TODO changed name
+		this.payeecountry.setName("payeecountry");
+		
 		this.payeetin_npi_duns = new PayeeTIN(fields.get(44));
 		this.productname2 = new Product(fields.get(45));
 		this.productname3 = new Product(fields.get(46));
@@ -184,8 +194,8 @@ public class SpendRecord extends DataRecord
 		this.productcategory = new ProductCategory(fields.get(76));
 		this.fiscalyearofspend = new FiscalYearOfSpend(fields.get(77));
 		this.sapvendorid = new SAPVendorId(fields.get(78));
-		this.accountingdocumentnumber = new AccountingDocumentNumber(fields.get(79));
-
+		this.accountingdocumentnumber = new AccountingDocumentNumber(fields.get(79));		
+		
 		this.pilocalcrid1.setMandatory(false);
 		this.pilocalcrid2.setMandatory(false);
 		this.pilocalcrid3.setMandatory(false);
@@ -231,87 +241,95 @@ public class SpendRecord extends DataRecord
 			this.consentid.setMandatory(true);
 			this.consentreceiveddate.setMandatory(true);
 		}
-
-		this.elements.add(spendid);
-		this.elements.add(division);
-		this.elements.add(country);
-		this.elements.add(localcrid);
-		this.elements.add(localcridtype);
-		this.elements.add(spendpurpose);
-		this.elements.add(otherspendpurpose);
-		this.elements.add(relationpurpose);
-		this.elements.add(relationtype);
-		this.elements.add(spenddate);
-		this.elements.add(spendamount);
-		this.elements.add(spendcurrency);
-		this.elements.add(consentindicator);
-		this.elements.add(consentreceiveddate);
-		this.elements.add(consentid);
-		this.elements.add(productname1);
-		this.elements.add(eventid);
-		this.elements.add(crmeventid);
-		this.elements.add(contractid);
-		this.elements.add(sourcelineid);
-		this.elements.add(xborderflag);
-		this.elements.add(payeename);
-		this.elements.add(payingdivision);
-		this.elements.add(payingcountry);
-		this.elements.add(crfirstname);
-		this.elements.add(crlastname);
-		this.elements.add(craddressline1);
-		this.elements.add(crcity);
-		this.elements.add(crcountry);
-		this.elements.add(crzipcode);
-		this.elements.add(crspeciality);
-		this.elements.add(spendponumber);
-		this.elements.add(paymentmethod);
-		this.elements.add(paymentform);
-		this.elements.add(paymentnote);
-		this.elements.add(paymentcostcenter);
-		this.elements.add(paymentwbs);
-		this.elements.add(ponumber);
-		this.elements.add(payeestreetaddress1);
-		this.elements.add(payeestreetaddress2);
-		this.elements.add(payeecity);
-		this.elements.add(payeestate_province);
-		this.elements.add(payeezip);
-		this.elements.add(payeecountry);
-		this.elements.add(payeetin_npi_duns);
-		this.elements.add(productname2);
-		this.elements.add(productname3);
-		this.elements.add(productname4);
-		this.elements.add(productname5);
-		this.elements.add(yearoffirstpayment1);
-		this.elements.add(yearoffirstpayment2);
-		this.elements.add(yearoffirstpayment3);
-		this.elements.add(yearoffirstpayment4);
-		this.elements.add(yearoffirstpayment5);
-		this.elements.add(picrphysicianindicator);
-		this.elements.add(clinicaltrialsgovidentifier);
-		this.elements.add(studyname);
-		this.elements.add(contextofresearch);
-		this.elements.add(pilocalcrid1);
-		this.elements.add(pilocalcrid2);
-		this.elements.add(pilocalcrid3);
-		this.elements.add(pilocalcrid4);
-		this.elements.add(pilocalcrid5);
-		this.elements.add(picridtype1);
-		this.elements.add(picridtype2);
-		this.elements.add(picridtype3);
-		this.elements.add(picridtype4);
-		this.elements.add(picridtype5);
-		this.elements.add(preclinicalresearchindicator);
-		this.elements.add(researchinformationlink);
-		this.elements.add(reasonforchange);
-		this.elements.add(lodgingcity);
-		this.elements.add(lodgingcountry);
-		this.elements.add(customerclaims);
-		this.elements.add(submissionstatus);
-		this.elements.add(linkagewithcontract);
-		this.elements.add(productcategory);
-		this.elements.add(fiscalyearofspend);
-		this.elements.add(sapvendorid);
-		this.elements.add(accountingdocumentnumber);
+		
+	}
+	
+	public LinkedList<DataElement> configureElementsList()
+	{
+		LinkedList<DataElement> el = new LinkedList<DataElement>();
+		
+		el.add(this.spendid);
+		el.add(this.division);
+		el.add(this.country);
+		el.add(this.localcrid);
+		el.add(this.localcridtype);
+		el.add(this.spendpurpose);
+		el.add(this.otherspendpurpose);
+		el.add(this.relationpurpose);
+		el.add(this.relationtype);
+		el.add(this.spenddate);
+		el.add(this.spendamount);
+		el.add(this.spendcurrency);
+		el.add(this.consentindicator);
+		el.add(this.consentreceiveddate);
+		el.add(this.consentid);
+		el.add(this.productname1);
+		el.add(this.eventid);
+		el.add(this.crmeventid);
+		el.add(this.contractid);
+		el.add(this.sourcelineid);
+		el.add(this.xborderflag);
+		el.add(this.payeename);
+		el.add(this.payingdivision);
+		el.add(this.payingcountry);
+		el.add(this.crfirstname);
+		el.add(this.crlastname);
+		el.add(this.craddressline1);
+		el.add(this.crcity);
+		el.add(this.crcountry);
+		el.add(this.crzipcode);
+		el.add(this.crspeciality);
+		el.add(this.spendponumber);
+		el.add(this.paymentmethod);
+		el.add(this.paymentform);
+		el.add(this.paymentnote);
+		el.add(this.paymentcostcenter);
+		el.add(this.paymentwbs);
+		el.add(this.ponumber);
+		el.add(this.payeestreetaddress1);
+		el.add(this.payeestreetaddress2);
+		el.add(this.payeecity);
+		el.add(this.payeestate_province);
+		el.add(this.payeezip);
+		el.add(this.payeecountry);
+		el.add(this.payeetin_npi_duns);
+		el.add(this.productname2);
+		el.add(this.productname3);
+		el.add(this.productname4);
+		el.add(this.productname5);
+		el.add(this.yearoffirstpayment1);
+		el.add(this.yearoffirstpayment2);
+		el.add(this.yearoffirstpayment3);
+		el.add(this.yearoffirstpayment4);
+		el.add(this.yearoffirstpayment5);
+		el.add(this.picrphysicianindicator);
+		el.add(this.clinicaltrialsgovidentifier);
+		el.add(this.studyname);
+		el.add(this.contextofresearch);
+		el.add(this.pilocalcrid1);
+		el.add(this.pilocalcrid2);
+		el.add(this.pilocalcrid3);
+		el.add(this.pilocalcrid4);
+		el.add(this.pilocalcrid5);
+		el.add(this.picridtype1);
+		el.add(this.picridtype2);
+		el.add(this.picridtype3);
+		el.add(this.picridtype4);
+		el.add(this.picridtype5);
+		el.add(this.preclinicalresearchindicator);
+		el.add(this.researchinformationlink);
+		el.add(this.reasonforchange);
+		el.add(this.lodgingcity);
+		el.add(this.lodgingcountry);
+		el.add(this.customerclaims);
+		el.add(this.submissionstatus);
+		el.add(this.linkagewithcontract);
+		el.add(this.productcategory);
+		el.add(this.fiscalyearofspend);
+		el.add(this.sapvendorid);
+		el.add(this.accountingdocumentnumber);
+		
+		return el;
 	}
 
 	public void setFile(SpendFile newFile)
@@ -337,6 +355,13 @@ public class SpendRecord extends DataRecord
 	public IdType getLocalCRIDType()
 	{
 		return this.localcridtype;
+	}
+	
+	@Override
+	public LinkedList<DataElement> getFields()
+	{
+		LinkedList<DataElement> list = this.configureElementsList();
+		return list;
 	}
 
 
