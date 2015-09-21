@@ -115,7 +115,6 @@ public class CRRecord extends DataRecord{
 		this.reasonforchange  = new ReasonForChange(fields.get(39));
 		
 		this.address1  = new Address( new AddressType(fields.get(40)), new AddressLine(fields.get(41)), new AddressLine(fields.get(42)), new AddressLine(fields.get(43)), new AddressLine(fields.get(44)), new City(fields.get(45)), new ZipCode(fields.get(46)), new StateProvinceRegionCounty(fields.get(47)), new Country(fields.get(48)));
-		this.address1.setMandatory(true);
 		this.address2  = new Address( new AddressType(fields.get(49)), new AddressLine(fields.get(50)), new AddressLine(fields.get(51)), new AddressLine(fields.get(52)), new AddressLine(fields.get(53)), new City(fields.get(54)), new ZipCode(fields.get(55)), new StateProvinceRegionCounty(fields.get(56)), new Country(fields.get(57)));
 		this.address3  = new Address( new AddressType(fields.get(58)), new AddressLine(fields.get(59)), new AddressLine(fields.get(60)), new AddressLine(fields.get(61)), new AddressLine(fields.get(62)), new City(fields.get(63)), new ZipCode(fields.get(64)), new StateProvinceRegionCounty(fields.get(65)), new Country(fields.get(66)));
 		this.address4  = new Address( new AddressType(fields.get(67)), new AddressLine(fields.get(68)), new AddressLine(fields.get(69)), new AddressLine(fields.get(70)), new AddressLine(fields.get(71)), new City(fields.get(72)), new ZipCode(fields.get(73)), new StateProvinceRegionCounty(fields.get(74)), new Country(fields.get(75)));
@@ -125,6 +124,19 @@ public class CRRecord extends DataRecord{
 		this.address8  = new Address( new AddressType(fields.get(103)), new AddressLine(fields.get(104)), new AddressLine(fields.get(105)), new AddressLine(fields.get(106)), new AddressLine(fields.get(107)), new City(fields.get(108)), new ZipCode(fields.get(109)), new StateProvinceRegionCounty(fields.get(110)), new Country(fields.get(111)));
 		this.address9  = new Address( new AddressType(fields.get(112)), new AddressLine(fields.get(113)), new AddressLine(fields.get(114)), new AddressLine(fields.get(115)), new AddressLine(fields.get(116)), new City(fields.get(117)), new ZipCode(fields.get(118)), new StateProvinceRegionCounty(fields.get(119)), new Country(fields.get(120)));
 		this.address10  = new Address( new AddressType(fields.get(121)), new AddressLine(fields.get(122)), new AddressLine(fields.get(123)), new AddressLine(fields.get(124)), new AddressLine(fields.get(125)), new City(fields.get(126)), new ZipCode(fields.get(127)), new StateProvinceRegionCounty(fields.get(128)), new Country(fields.get(129)));
+		this.address1.setMandatory(true);
+		this.address2.setMandatory(false);
+		this.address3.setMandatory(false);
+		this.address4.setMandatory(false);
+		this.address5.setMandatory(false);
+		this.address6.setMandatory(false);
+		this.address7.setMandatory(false);
+		this.address8.setMandatory(false);
+		this.address9.setMandatory(false);
+		this.address10.setMandatory(false);
+		
+
+		
 		
 		//set Conditionals according to CR Category
 		if (this.crcategory.getData().toString().equals("HCP"))
@@ -148,6 +160,12 @@ public class CRRecord extends DataRecord{
 			this.consentid.setMandatory(true);
 			this.consentreceiveddate.setMandatory(true);
 		}
+		
+		//set Conditionals for IdNumber and IdType
+		this.idnumber_2.setMandatory(false);
+		this.idnumber_3.setMandatory(false);
+		this.idtype_2.setMandatory(false);
+		this.idtype_3.setMandatory(false);
 		
 		this.elements.add(crid);
 		this.elements.add(crcategory);

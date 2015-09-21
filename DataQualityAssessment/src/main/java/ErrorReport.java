@@ -44,34 +44,11 @@ public class ErrorReport {
 			LinkedList<DataElement> fields = r.getFields();
 			for (DataElement d : fields)
 			{
-				if (d instanceof Country)
+				if (d.getIsNull() || d.getData().toString().equals(""))
 				{
-					if (!d.getData().toString().equals(ldf.getAffiliate().getCountry().toString()))
+					if (d.getMandatory())
 					{
-						ErrorRecord error = new ErrorRecord(406, ldf.getAffiliate(),
-								d.getName(), d.getData().toString());
-						errors.add(error);
-						r.didNotLoad();
-						this.rejectedRecords++;
-					}
-				}
-				if (d instanceof Division)
-				{
-					if (!d.getData().toString().equals(ldf.getAffiliate().getDivision().toString()))
-					{
-						ErrorRecord error = new ErrorRecord(407, ldf.getAffiliate(),
-								d.getName(), d.getData().toString());
-						errors.add(error);
-						r.didNotLoad();
-						this.rejectedRecords++;
-					}
-				}
-				
-				if (d.getMandatory())
-				{
-					//TODO reevaluate isEmpty() 	
-					if (d.getData() == null || d.getData().toString().isEmpty()) 
-					{
+
 						ErrorRecord error = new ErrorRecord(403, ldf.getAffiliate(),
 								d.getName(), d.getData().toString());
 						errors.add(error);
@@ -79,70 +56,98 @@ public class ErrorReport {
 						this.rejectedRecords++;
 					}
 				}
-				if (d.getLov())
+				else
 				{
-					String lov = d.getData().toString().trim();
-					if (Run.getRepository().isGlobalLov(d.getClass().getSimpleName().toLowerCase()))
+					if (d.getLov())
 					{
-						if (!Run.getRepository().isValidGlobalLov(d.getClass().getSimpleName(), lov))
+						if (d instanceof Country)
 						{
-							ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+							if (!d.getData().toString().equals(ldf.getAffiliate().getCountry().toString()))
+							{
+								ErrorRecord error = new ErrorRecord(406, ldf.getAffiliate(),
+										d.getName(), d.getData().toString());
+								errors.add(error);
+								r.didNotLoad();
+								this.rejectedRecords++;
+							}
+						}
+						else if (d instanceof Division)
+						{
+							if (!d.getData().toString().equals(ldf.getAffiliate().getDivision().toString()))
+							{
+								ErrorRecord error = new ErrorRecord(407, ldf.getAffiliate(),
+										d.getName(), d.getData().toString());
+								errors.add(error);
+								r.didNotLoad();
+								this.rejectedRecords++;
+							}
+						}
+						else
+						{
+							String lov = d.getData().toString().trim();
+							if (Run.getRepository().isGlobalLov(d.getClass().getSimpleName().toLowerCase()))
+							{
+								if (!Run.getRepository().isValidGlobalLov(d.getClass().getSimpleName(), lov))
+								{
+									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+											d.getName(), d.getData().toString());
+									errors.add(error);
+									r.didNotLoad();
+									this.rejectedRecords++;
+								}
+							}
+							else if (Run.getRepository().isLocalLov((file.getAffiliate().getAffiliateName() + 
+									d.getClass().getSimpleName().toLowerCase()).toLowerCase()))
+							{
+								if (!Run.getRepository().isValidLocalLov(ldf.getAffiliate(), d.
+										getClass().getSimpleName().toLowerCase(), lov))
+								{
+									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+											d.getName(), d.getData().toString());
+									errors.add(error);
+									r.didNotLoad();
+									this.rejectedRecords++;
+								}
+							}
+							else 
+							{
+								//is not defined for this affiliate
+							}
+						}
+					}
+					else if (d.getDate())
+					{
+						String value = d.getData().toString();
+						Date date = null;
+						try 
+						{
+							SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+							date = sdf.parse(value);
+							if (!value.equals(sdf.format(date))) 
+							{
+								date = null;
+							}
+						} 
+						catch (ParseException ex) {}
+						if (date == null) 
+						{
+							ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
 									d.getName(), d.getData().toString());
 							errors.add(error);
 							r.didNotLoad();
 							this.rejectedRecords++;
 						}
 					}
-					else if (Run.getRepository().isLocalLov((file.getAffiliate().getAffiliateName() + 
-							d.getClass().getSimpleName().toLowerCase()).toLowerCase()))
+					else if (d.getNumeric())
 					{
-						if (!Run.getRepository().isValidLocalLov(ldf.getAffiliate(), d.
-								getClass().getSimpleName().toLowerCase(), lov))
+						if (!(d.getData() instanceof Double || d.getData() instanceof Integer))
 						{
-							ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+							ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
 									d.getName(), d.getData().toString());
 							errors.add(error);
 							r.didNotLoad();
 							this.rejectedRecords++;
 						}
-					}
-					else 
-					{
-						//is not defined for this affiliate
-					}
-				}
-				else if (d.getDate())
-				{
-					String value = d.getData().toString();
-					Date date = null;
-					try 
-					{
-						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-						date = sdf.parse(value);
-						if (!value.equals(sdf.format(date))) 
-						{
-							date = null;
-						}
-					} 
-					catch (ParseException ex) {}
-					if (date == null) 
-					{
-						ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
-								d.getName(), d.getData().toString());
-						errors.add(error);
-						r.didNotLoad();
-						this.rejectedRecords++;
-					}
-				}
-				else if (d.getNumeric())
-				{
-					if (!(d.getData() instanceof Double || d.getData() instanceof Integer))
-					{
-						ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
-								d.getName(), d.getData().toString());
-						errors.add(error);
-						r.didNotLoad();
-						this.rejectedRecords++;
 					}
 				}
 			}

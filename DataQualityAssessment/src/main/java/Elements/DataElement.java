@@ -8,11 +8,16 @@ public abstract class DataElement {
 	protected boolean numeric;
 	protected boolean date;
 	protected boolean lov;
+	protected boolean isNull = false;
 	protected Object dataField;
 	
 	public DataElement(Object dataField)
 	{
 		this.dataField = dataField;
+		if (dataField.toString().isEmpty())
+		{
+			isNull = true;
+		}
 	}
 	
 	public String getName()
@@ -53,6 +58,11 @@ public abstract class DataElement {
 	public void setName(String name)
 	{
 		this.elementName = name;
+	}
+	
+	public boolean getIsNull()
+	{
+		return this.isNull;
 	}
 	
 

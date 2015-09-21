@@ -1,8 +1,8 @@
 import java.io.*;
+import java.io.FileWriter;
 import java.util.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
-
 import Elements.DataElement;
 import Repository.*;
 
@@ -47,22 +47,22 @@ public class Run {
 				ldf.generateErrorReport();
 			}
 		}
-		
-		
+
+		/*
 		//CHECK SPEND - CR link
 		for (LocalDataFile ldf : files)
 		{
 			if (ldf instanceof SpendFile)
 			{
 				SpendFile spendFile = (SpendFile) ldf;
-				
+
 				if (repo.getIntegrationAffiliates().contains(spendFile.getAffiliate().getAffiliateName()))
 				{
 					boolean found = false;	
 					LocalDataFile crFile = null;
-					
+
 					Iterator<LocalDataFile> it = files.iterator();
-					
+
 				    while(it.hasNext() && !found)
 				    {
 				       LocalDataFile fileToCheck = it.next();
@@ -76,7 +76,7 @@ public class Run {
 				       }
 				       //loop ends
 					}
-				    
+
 				    if (found)
 				    {
 				    	for (DataRecord spend : spendFile.getRecords())
@@ -84,9 +84,9 @@ public class Run {
 				    		SpendRecord record = (SpendRecord) spend;
 				    		String localcrid = record.getLocalCRID().getData().toString();
 				    		boolean foundId = false;
-				    		
+
 				    		Iterator<DataRecord> ite = crFile.getRecords().iterator();
-							
+
 						    while(ite.hasNext() && !foundId)
 						    {
 						       CRRecord fileToCheck = (CRRecord) ite.next();
@@ -104,7 +104,7 @@ public class Run {
 						       }
 						       //loop ends
 							}
-						    
+
 						    if (!foundId)
 						    {
 						    	ErrorRecord error = new ErrorRecord(412, ldf.getAffiliate(),
@@ -114,10 +114,11 @@ public class Run {
 						    }
 				    	}
 				    }
-				    
+
 				}
 			}
 		}
+		 */
 
 
 		//PRINT T_FILE_MONITOR EXRTRACT
@@ -157,10 +158,11 @@ public class Run {
 			}
 		}
 
-
 		//PRINT T_ERR_AUDIT EXTRACT		
 		if (tErrAudit)
 		{
+			String pathToStoreErrors = "/Users/Daan/Desktop/DQ Results/testing.csv"; 
+			FileWriter writer = new FileWriter(pathToStoreErrors);
 			try
 			{
 				for (LocalDataFile f : files)
@@ -173,6 +175,7 @@ public class Run {
 					}
 					catch (Exception ex)
 					{
+						SpendFile test = (SpendFile) f;
 						type = "T_SPND";
 					}
 
@@ -189,13 +192,15 @@ public class Run {
 					{
 						for (ErrorRecord rec : toPrint)
 						{
-							System.out.println("Id,prtl," + rec.getAffiliate().getCountry() + "," + div
+							writer.append("Id,prtl," + rec.getAffiliate().getCountry() + "," + div
 									+ "," + getRepository().getErrorDescription(rec.getErrorCode()) + "," +
 									rec.getErrorCode() + "," + rec.getErrColumnName() + "," + rec.getErrColumnValue() +
-									"," + type);
+									"," + type + '\n');
 						}
 					}
 				}
+				writer.flush();
+				writer.close();
 			}
 			catch (Exception ex)
 			{

@@ -186,8 +186,20 @@ public class SpendRecord extends DataRecord
 		this.sapvendorid = new SAPVendorId(fields.get(78));
 		this.accountingdocumentnumber = new AccountingDocumentNumber(fields.get(79));
 
+		this.pilocalcrid1.setMandatory(false);
+		this.pilocalcrid2.setMandatory(false);
+		this.pilocalcrid3.setMandatory(false);
+		this.pilocalcrid4.setMandatory(false);
+		this.pilocalcrid5.setMandatory(false);
+		this.picridtype1.setMandatory(false);
+		this.picridtype2.setMandatory(false);
+		this.picridtype3.setMandatory(false);
+		this.picridtype4.setMandatory(false);
+		this.picridtype5.setMandatory(false);
+
+
 		//set conditionals for x-border spends
-		if ((String) this.xborderflag.getData() == "Y")
+		if (this.xborderflag.getData().toString().equals("Y"))
 		{
 			this.payingcountry.setMandatory(true);
 			this.payingdivision.setMandatory(true);
@@ -198,6 +210,18 @@ public class SpendRecord extends DataRecord
 			this.crcountry.setMandatory(true);
 			this.crzipcode.setMandatory(true);
 			this.crspeciality.setMandatory(true);
+		}
+		else if (this.xborderflag.getData().toString().equals("N"))
+		{
+			this.payingcountry.setMandatory(false);
+			this.payingdivision.setMandatory(false);
+			this.crfirstname.setMandatory(false);
+			this.crlastname.setMandatory(false);
+			this.craddressline1.setMandatory(false);
+			this.crcity.setMandatory(false);
+			this.crcountry.setMandatory(false);
+			this.crzipcode.setMandatory(false);
+			this.crspeciality.setMandatory(false);
 		}
 		
 		//set conditionals for Consent

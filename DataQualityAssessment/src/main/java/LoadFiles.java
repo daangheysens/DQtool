@@ -36,6 +36,8 @@ public class LoadFiles {
 		//all filenames to be added here
 		filesToLoad.add("CR_PortalMassUpload_ES_AL_008_Milestone2.xlsx/"); 
 		filesToLoad.add("Spend_PortalMassUpload_NO_PH_036_Milestone2.xlsx/");
+		filesToLoad.add("CR_PortalMassUpload_RU_PH_Deadline1.xlsx/");
+		filesToLoad.add("Spend_PortalMassUpload_RU_PH_Deadline1.xlsx/");
 		// ...
 		// ...
 		// ...
@@ -82,9 +84,9 @@ public class LoadFiles {
 					{
 						affName.append(f.substring(23,25));
 						affName.append(f.substring(26,28));
-						
+
 						Affiliate thisAffiliate = this.repo.searchAffiliate(affName.toString());
-						
+
 						if (thisAffiliate != null)
 						{
 							files.add(this.loadSpends(buildPath.toString(), this.repo.searchAffiliate(affName.toString())));
@@ -113,73 +115,73 @@ public class LoadFiles {
 	{	
 		if (affiliate == null)
 		{
-		System.out.println("ttt");
-		throw new IOException();
+			System.out.println("ttt");
+			throw new IOException();
 		}
-	
-	CRFile newFile = new CRFile(affiliate);
 
-	File myFile = new File(fileName); 
-	FileInputStream fis = new FileInputStream(myFile); 
-	XSSFWorkbook myWorkBook = new XSSFWorkbook (fis); 
+		CRFile newFile = new CRFile(affiliate);
 
-	// Return third sheet from the XLSX workbook 
-	try 
-	{
-		XSSFSheet mySheet = myWorkBook.getSheetAt(2);
-		Iterator ite = mySheet.rowIterator();
-		ite.next();
-		while(ite.hasNext())
+		File myFile = new File(fileName); 
+		FileInputStream fis = new FileInputStream(myFile); 
+		XSSFWorkbook myWorkBook = new XSSFWorkbook (fis); 
+
+		// Return third sheet from the XLSX workbook 
+		try 
 		{
-			try
+			XSSFSheet mySheet = myWorkBook.getSheetAt(2);
+			Iterator ite = mySheet.rowIterator();
+			ite.next();
+			while(ite.hasNext())
 			{
-				Row row = (Row) ite.next();
-				LinkedList<Object> newRec = new LinkedList<Object>();
-				for(int cn = 0; cn<130; cn++) 
+				try
 				{
-					// If the cell is missing from the file, generate a blank one
-					// (Works by specifying a MissingCellPolicy)
-					Cell cell = row.getCell(cn, Row.CREATE_NULL_AS_BLANK);
-					switch (cell.getCellType()) 
-					{ 
-					case Cell.CELL_TYPE_STRING: newRec.add(cell.getStringCellValue()); 
-					break; 
-					case Cell.CELL_TYPE_NUMERIC: newRec.add(cell.getNumericCellValue());
-					break; 
-					case Cell.CELL_TYPE_BOOLEAN: newRec.add(cell.getBooleanCellValue()); 
-					break; 
-					case Cell.CELL_TYPE_BLANK: newRec.add("");
-					break;
-					default : 
-					} 
+					Row row = (Row) ite.next();
+					LinkedList<Object> newRec = new LinkedList<Object>();
+					for(int cn = 0; cn<130; cn++) 
+					{
+						// If the cell is missing from the file, generate a blank one
+						// (Works by specifying a MissingCellPolicy)
+						Cell cell = row.getCell(cn, Row.CREATE_NULL_AS_BLANK);
+						switch (cell.getCellType()) 
+						{ 
+						case Cell.CELL_TYPE_STRING: newRec.add(cell.getStringCellValue()); 
+						break; 
+						case Cell.CELL_TYPE_NUMERIC: newRec.add(cell.getNumericCellValue());
+						break; 
+						case Cell.CELL_TYPE_BOOLEAN: newRec.add(cell.getBooleanCellValue()); 
+						break; 
+						case Cell.CELL_TYPE_BLANK: newRec.add("");
+						break;
+						default : 
+						} 
+					}
+					newFile.addRecord(new CRRecord(newRec, newFile));
+
 				}
-				newFile.addRecord(new CRRecord(newRec, newFile));
+				catch (Exception ex)
+				{
+					System.out.println("Fix iterator");
+				}
 
 			}
-			catch (Exception ex)
-			{
-				System.out.println("Fix iterator");
-			}
-			
+			return newFile;
 		}
-		return newFile;
+		catch (Exception ex)
+		{
+			System.out.println("Invalid file syntax for " + fileName);
+			throw new FileNotFoundException();
+		}
 	}
-	catch (Exception ex)
-	{
-		System.out.println("Invalid file syntax for " + fileName);
-		throw new FileNotFoundException();
-	}
-}
 
 	//SPENDMASSUPLOAD
 	private LocalDataFile loadSpends(String fileName, Affiliate affiliate) throws FileNotFoundException, IOException
 	{
 		if (affiliate == null)
-			{
+		{
 			System.out.println("ttt");
 			throw new IOException();
-			}
-		
+		}
+
 		SpendFile newFile = new SpendFile(affiliate);
 
 		File myFile = new File(fileName); 
@@ -223,7 +225,7 @@ public class LoadFiles {
 				{
 					System.out.println("Fix iterator");
 				}
-				
+
 			}
 			return newFile;
 		}
