@@ -22,5 +22,17 @@ public class Country extends DataElement{
 		this.elementName = "Country";	
 	}
 	
+	@Override
+	public void setMandatory(boolean man)
+	{
+		this.mandatory = man;
+	}
+	
+	@Override
+	public boolean getMandatory()
+	{
+		return this.mandatory;
+	}
+	
 
 }

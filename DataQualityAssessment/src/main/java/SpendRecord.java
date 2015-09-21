@@ -90,7 +90,7 @@ public class SpendRecord extends DataRecord
 	private ResearchInformationLink researchinformationlink;
 	private ReasonForChange reasonforchange;
 	private City lodgingcity;
-	private Country lodgingcountry;
+	private Country lodgingcountry;	
 	private CustomerClaims customerclaims;
 	private SubmissionStatus submissionstatus;
 	private LinkageWithContract linkagewithcontract;
@@ -188,6 +188,10 @@ public class SpendRecord extends DataRecord
 		this.reasonforchange = new ReasonForChange(fields.get(70));
 		this.lodgingcity = new City(fields.get(71));
 		this.lodgingcountry = new Country(fields.get(72));
+		
+		//TODO changed name
+		this.lodgingcountry.setMandatory(false);
+		
 		this.customerclaims = new CustomerClaims(fields.get(73));
 		this.submissionstatus = new SubmissionStatus(fields.get(74));
 		this.linkagewithcontract = new LinkageWithContract(fields.get(75));
@@ -196,6 +200,8 @@ public class SpendRecord extends DataRecord
 		this.sapvendorid = new SAPVendorId(fields.get(78));
 		this.accountingdocumentnumber = new AccountingDocumentNumber(fields.get(79));		
 		
+		//set optional fields
+		this.payeecountry.setMandatory(false);
 		this.pilocalcrid1.setMandatory(false);
 		this.pilocalcrid2.setMandatory(false);
 		this.pilocalcrid3.setMandatory(false);
@@ -221,7 +227,7 @@ public class SpendRecord extends DataRecord
 			this.crzipcode.setMandatory(true);
 			this.crspeciality.setMandatory(true);
 		}
-		else if (this.xborderflag.getData().toString().equals("N"))
+		else
 		{
 			this.payingcountry.setMandatory(false);
 			this.payingdivision.setMandatory(false);
