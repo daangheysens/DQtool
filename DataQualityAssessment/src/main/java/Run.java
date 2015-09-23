@@ -1,10 +1,10 @@
-import java.io.*;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.util.*;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.*;
-import Elements.DataElement;
-import Repository.*;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.LinkedList;
+
+import Repository.Repository;
 
 
 /**
@@ -29,7 +29,7 @@ public class Run {
 	{
 		boolean generateErrReport = true;
 		boolean tErrAudit = true;
-		boolean tFileMonitor = false;
+		boolean tFileMonitor = true;
 
 
 		//LOAD FILES
@@ -124,6 +124,10 @@ public class Run {
 		//PRINT T_FILE_MONITOR EXRTRACT
 		if (tFileMonitor)
 		{
+			String pathToStoreErrors = "C:/Users/daan.gheysens/Desktop/DQAssessment/Output/files.csv"; 
+			FileWriter writer = new FileWriter(pathToStoreErrors);
+			
+			//
 			try 
 			{
 				for (LocalDataFile f : files)
@@ -147,21 +151,24 @@ public class Run {
 						div = "AL";
 
 					//print file specifics
-					System.out.println(",," + type + ",prtl," + f.getRecords().size() + ",," 
-							+ f.getAffiliate().getAffiliateName() + ",," + f.getErrorReport().getRejectedRecords());
-
+					writer.append(",," + type + ",prtl," + f.getRecords().size() + ",," 
+							+ f.getAffiliate().getAffiliateName() + ",," + 
+							f.getErrorReport().getRejectedRecords() + '\n');
+				
 				}
+				writer.flush();
+				writer.close();
 			}
 			catch (Exception ex)
 			{
-				System.out.println("Error in T_ERR_AUDIT extract");
+				System.out.println("Error in T_FILE_MONITOR extract");
 			}
 		}
 
 		//PRINT T_ERR_AUDIT EXTRACT		
 		if (tErrAudit)
 		{
-			String pathToStoreErrors = "/Users/Daan/Desktop/DQ Results/testing.csv"; 
+			String pathToStoreErrors = "C:/Users/daan.gheysens/Desktop/DQAssessment/Output/testing.csv"; 
 			FileWriter writer = new FileWriter(pathToStoreErrors);
 			try
 			{

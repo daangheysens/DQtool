@@ -30,14 +30,14 @@ public class LoadFiles {
 		this.repo = repo;
 
 		//to provide std. filepath
-		String path = "/Users/Daan/Desktop/DQAssessment/";
+		String path = "C:/Users/daan.gheysens/Desktop/DQAssessment/Input/";
 		//Affiliates
 		HashSet<String> filesToLoad = new HashSet<String>();
 		//all filenames to be added here
-		filesToLoad.add("CR_PortalMassUpload_ES_AL_008_Milestone2.xlsx/"); 
-		filesToLoad.add("Spend_PortalMassUpload_NO_PH_036_Milestone2.xlsx/");
-		filesToLoad.add("CR_PortalMassUpload_RU_PH_Deadline1.xlsx/");
-		filesToLoad.add("Spend_PortalMassUpload_RU_PH_Deadline1.xlsx/");
+		filesToLoad.add("CR_PortalMassUpload_TR_AL_200_Milestone2.xlsx");
+		filesToLoad.add("CR_PortalMassUpload_TR_PH_999_Milestone2.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_TR_AL_200_Milestone2.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_TR_PH_999_Milestone2.xlsx");
 		// ...
 		// ...
 		// ...

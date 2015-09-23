@@ -4662,10 +4662,10 @@ public class Repository
 		ru11currency.add("USD");
 		ru14crtype.add("HCP");
 		ru14crtype.add("HCO");
-		ru14idtype.add("VeevaID");
+		ru14idtype.add("Veeva ID");
 		ru14idtype.add("SAPVendorID");
-		ru14idtype.add("SZRUHCOID");
-		ru14idtype.add("KOLID");
+		ru14idtype.add("TaxID");
+		ru14idtype.add("SSID");
 		ru14currency.add("CHF");
 		ru14currency.add("EUR");
 		ru14currency.add("RUB");
@@ -4731,9 +4731,8 @@ public class Repository
 		tr71crtype.add("HCP");
 		tr71crtype.add("HCO");
 		tr71crtype.add("Other");
-		tr71idtype.add("SALSA");
-		tr71idtype.add("AGR ");
-		tr71idtype.add("NP4");
+		tr71idtype.add("CRID36");
+		tr71idtype.add("CRID34");
 		tr71title.add("UZM");
 		tr71title.add("PROF");
 		tr71title.add("ASS");
