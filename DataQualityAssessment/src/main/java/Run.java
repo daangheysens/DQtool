@@ -167,7 +167,7 @@ public class Run {
 		//PRINT T_ERR_AUDIT EXTRACT		
 		if (tErrAudit)
 		{
-			String pathToStoreErrors = "C:/Users/daan.gheysens/Desktop/DQAssessment/Output/testing.csv"; 
+			String pathToStoreErrors = "C:/Users/daan.gheysens/Desktop/DQAssessment/Output/errors.csv"; 
 			FileWriter writer = new FileWriter(pathToStoreErrors);
 			try
 			{
