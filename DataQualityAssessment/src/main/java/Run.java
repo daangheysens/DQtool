@@ -19,7 +19,6 @@ public class Run {
 
 	//check necessity of this
 	private static final Repository repo = new Repository();
-	private HashSet<LocalDataFile> dataFiles = new HashSet<LocalDataFile>();
 
 	/**
 	 * @param args

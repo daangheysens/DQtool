@@ -1,16 +1,12 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
-import Repository.Repository;
-
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import Elements.CRId;
 import Elements.Country;
 import Elements.DataElement;
 import Elements.Division;
+import Elements.SpendId;
 
 /**
  * 
@@ -39,11 +35,13 @@ public class ErrorReport {
 		LinkedList<DataRecord> records = ldf.getRecords();
 		for (DataRecord r : records)
 		{
-			boolean rejected = false;
+			
 
 			LinkedList<DataElement> fields = r.getFields();
 			for (DataElement d : fields)
 			{
+				boolean rejected = false;
+				
 				if (d.getIsNull())
 				{
 					if (d.getMandatory())
@@ -52,7 +50,7 @@ public class ErrorReport {
 								d.getName(), d.getData().toString());
 						errors.add(error);
 						r.didNotLoad();
-						this.rejectedRecords++;
+						rejected = true;
 					}
 				}
 				else
@@ -66,8 +64,7 @@ public class ErrorReport {
 								ErrorRecord error = new ErrorRecord(406, ldf.getAffiliate(),
 										d.getName(), d.getData().toString());
 								errors.add(error);
-								r.didNotLoad();
-								this.rejectedRecords++;
+								rejected = true;
 							}
 						}
 						else if (d instanceof Division)
@@ -77,8 +74,7 @@ public class ErrorReport {
 								ErrorRecord error = new ErrorRecord(407, ldf.getAffiliate(),
 										d.getName(), d.getData().toString());
 								errors.add(error);
-								r.didNotLoad();
-								this.rejectedRecords++;
+								rejected = true;
 							}
 						}
 						else
@@ -91,8 +87,7 @@ public class ErrorReport {
 									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
 											d.getName(), d.getData().toString());
 									errors.add(error);
-									r.didNotLoad();
-									this.rejectedRecords++;
+									rejected = true;
 								}
 							}
 							else if (Run.getRepository().isLocalLov((file.getAffiliate().getAffiliateName() + 
@@ -104,8 +99,7 @@ public class ErrorReport {
 									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
 											d.getName(), d.getData().toString());
 									errors.add(error);
-									r.didNotLoad();
-									this.rejectedRecords++;
+									rejected = true;
 								}
 							}
 							else 
@@ -133,8 +127,7 @@ public class ErrorReport {
 							ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
 									d.getName(), d.getData().toString());
 							errors.add(error);
-							r.didNotLoad();
-							this.rejectedRecords++;
+							rejected = true;
 						}
 					}
 					else if (d.getNumeric())
@@ -144,12 +137,28 @@ public class ErrorReport {
 							ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
 									d.getName(), d.getData().toString());
 							errors.add(error);
-							r.didNotLoad();
-							this.rejectedRecords++;
+							rejected = true;
+						}
+					}
+					else if (d instanceof CRId || d instanceof SpendId)
+					{
+						if (!d.getIsNull())
+						{
+							//TODO adjust error
+							ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+									d.getName(), d.getData().toString());
+							errors.add(error);
+							rejected = true;
 						}
 					}
 				}
+				if (rejected)
+				{
+					this.rejectedRecords++;
+					r.didNotLoad();
+				}
 			}
+
 		}
 	}
 

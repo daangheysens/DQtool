@@ -2,8 +2,6 @@
  * 
  */
 
-import java.util.LinkedList;
-import java.util.List;
 
 import Repository.Affiliate;
 
