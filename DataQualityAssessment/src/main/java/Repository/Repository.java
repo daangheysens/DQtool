@@ -294,7 +294,7 @@ public class Repository
 		at11crtype.add("SAP_IMS Account");
 		at11crtype.add("Virtual Account");
 		at11idtype.add("Veeva ID");
-		at11idtype.add("SAP ID");
+		at11idtype.add("SAP BI");
 		at11specialty.add("Allgemeinmedizin");
 		at11specialty.add("Anästhesiologie und Intensivmedizin");
 		at11specialty.add("Anatomie");
@@ -911,7 +911,7 @@ public class Repository
 		be14crtype.add("PAGR");
 		be14crtype.add("PRPE");
 		be14idtype.add("SAP");
-		be14idtype.add("RIZIV/INAMI");
+		be14idtype.add("RISIV/INAMI");
 		be14idtype.add("OTHER");
 		be71businessarea.add("BUSAR01");
 		be71benefactorcategory.add("Hosp");
@@ -1242,7 +1242,7 @@ public class Repository
 		dk11crtype.add("PatGr");
 		dk11crtype.add("Other");
 		dk11currency.add("DKK");
-		dk11idtype.add("Linx Cededim ID");
+		dk11idtype.add("Lynx Cededim ID");
 		dk11idtype.add("Dummy ID");
 		dk11idtype.add("Other");
 		dk11idtype.add("Cpr-nr.");
@@ -4359,6 +4359,8 @@ public class Repository
 		hu11idtype.add("NURID");
 		hu11title.add("Dr.");
 		hu11title.add("Professor");
+		
+		
 		hu11currency.add("HUF");
 		ie11crtype.add("[DOCN]");
 		ie11crtype.add("[HCPR]");
@@ -4489,7 +4491,7 @@ public class Repository
 		pl11crtype.add("HCOR");
 		pl11crtype.add("PUBL");
 		pl11crtype.add("PAGR");
-		pl11idtype.add("Veeva");
+		pl11idtype.add("Veeva ID");
 		pl11idtype.add("SAP");
 		pl14crtype.add("HCP");
 		pl14crtype.add("HCO");
@@ -4651,7 +4653,7 @@ public class Repository
 		rs71title.add("Prof");
 		ru11crtype.add("HCP");
 		ru11crtype.add("HCO");
-		ru11idtype.add("Veeva ID");
+		ru11idtype.add("VeevaID");
 		ru11idtype.add("SAPVendorID");
 		ru11idtype.add("TaxID");
 		ru11currency.add("CHF");
@@ -4660,7 +4662,7 @@ public class Repository
 		ru11currency.add("USD");
 		ru14crtype.add("HCP");
 		ru14crtype.add("HCO");
-		ru14idtype.add("Veeva ID");
+		ru14idtype.add("VeevaID");
 		ru14idtype.add("SAPVendorID");
 		ru14idtype.add("TaxID");
 		ru14idtype.add("SSID");

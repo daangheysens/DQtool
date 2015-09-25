@@ -150,10 +150,14 @@ public class Run {
 						div = "AL";
 
 					//print file specifics
-					writer.append(",," + type + ",prtl," + f.getRecords().size() + ",," 
-							+ f.getAffiliate().getAffiliateName() + ",," + 
-							f.getErrorReport().getRejectedRecords() + '\n');
-				
+					writer.append(
+							type + '\t'
+							+ "prtl" + '\t' 
+							+ f.getRecords().size() + '\t' 
+							+ '\t'  
+							+ f.getAffiliate().getCountry() + div + '\t' 
+							+ '\t' 
+							+ f.getErrorReport().getRejectedRecords() + '\n');
 				}
 				writer.flush();
 				writer.close();
@@ -198,10 +202,17 @@ public class Run {
 					{
 						for (ErrorRecord rec : toPrint)
 						{
-							writer.append("Id,prtl," + rec.getAffiliate().getCountry() + "," + div
-									+ "," + getRepository().getErrorDescription(rec.getErrorCode()) + "," +
-									rec.getErrorCode() + "," + rec.getErrColumnName() + "," + rec.getErrColumnValue() +
-									"," + type + '\n');
+							writer.append(
+								"Id" + '\t' 
+								+ "prtl" + '\t'
+								+ rec.getAffiliate().getCountry() + '\t' 
+								+ div + '\t'
+								+ '\t' 
+								+ getRepository().getErrorDescription(rec.getErrorCode()) + '\t' 
+								+ rec.getErrorCode() + '\t' 
+								+ rec.getErrColumnName() + '\t' 
+								+ rec.getErrColumnValue() + '\t'
+								+ type + '\n');
 						}
 					}
 				}

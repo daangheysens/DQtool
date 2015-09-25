@@ -35,13 +35,11 @@ public class ErrorReport {
 		LinkedList<DataRecord> records = ldf.getRecords();
 		for (DataRecord r : records)
 		{
-			
-
 			LinkedList<DataElement> fields = r.getFields();
+			boolean rejected = false;
+			
 			for (DataElement d : fields)
-			{
-				boolean rejected = false;
-				
+			{				
 				if (d.getIsNull())
 				{
 					if (d.getMandatory())
@@ -152,13 +150,13 @@ public class ErrorReport {
 						}
 					}
 				}
-				if (rejected)
-				{
-					this.rejectedRecords++;
-					r.didNotLoad();
-				}
+				
 			}
-
+			if (rejected)
+			{
+				this.rejectedRecords++;
+				r.didNotLoad();
+			}
 		}
 	}
 
