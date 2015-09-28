@@ -55,7 +55,7 @@ public class ErrorReport {
 				{
 					if (d.getLov())
 					{
-						if (d instanceof Country)
+						if (d instanceof Country && d.getName().equals("Country"))
 						{
 							if (!d.getData().toString().equals(ldf.getAffiliate().getCountry().toString()))
 							{
@@ -65,7 +65,7 @@ public class ErrorReport {
 								rejected = true;
 							}
 						}
-						else if (d instanceof Division)
+						else if (d instanceof Division && d.getName().equals("Division"))
 						{
 							if (!d.getData().toString().equals(ldf.getAffiliate().getDivision().toString()))
 							{
