@@ -2,6 +2,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.Date;
+import java.util.HashMap;
+
 import Elements.CRId;
 import Elements.Country;
 import Elements.DataElement;
@@ -18,7 +20,7 @@ import Elements.SpendId;
  */
 public class ErrorReport {
 
-	private LinkedList<ErrorRecord> errors = new LinkedList<ErrorRecord>();
+	private HashMap<String, ErrorRecordCount> errors = new HashMap<String, ErrorRecordCount>();
 	private LocalDataFile file;
 	private int rejectedRecords = 0;
 
@@ -27,7 +29,6 @@ public class ErrorReport {
 		this.file = f;
 		this.checkIsolatedErrors(file);
 	}
-
 
 	public void checkIsolatedErrors(LocalDataFile ldf)
 	{
@@ -44,10 +45,18 @@ public class ErrorReport {
 				{
 					if (d.getMandatory())
 					{
-						ErrorRecord error = new ErrorRecord(403, ldf.getAffiliate(),
-								d.getName(), d.getData().toString());
-						errors.add(error);
-						r.didNotLoad();
+						String errKey = "403" + ldf.getAffiliate().getAffiliateName() + 
+								d.getName() + d.getData().toString();
+						if (errors.containsKey(errKey))
+						{
+							errors.get(errKey).increaseErrorCount();
+						}
+						else
+						{
+							ErrorRecord error = new ErrorRecord(403, ldf.getAffiliate(),
+									d.getName(), d.getData().toString());
+							errors.put(errKey, new ErrorRecordCount(error, errKey));
+						}			
 						rejected = true;
 					}
 				}
@@ -59,9 +68,18 @@ public class ErrorReport {
 						{
 							if (!d.getData().toString().equals(ldf.getAffiliate().getCountry().toString()))
 							{
-								ErrorRecord error = new ErrorRecord(406, ldf.getAffiliate(),
-										d.getName(), d.getData().toString());
-								errors.add(error);
+								String errKey = "406" + ldf.getAffiliate().getAffiliateName() + 
+										d.getName() + d.getData().toString();
+								if (errors.containsKey(errKey))
+								{
+									errors.get(errKey).increaseErrorCount();
+								}
+								else
+								{
+									ErrorRecord error = new ErrorRecord(406, ldf.getAffiliate(),
+											d.getName(), d.getData().toString());
+									errors.put(errKey, new ErrorRecordCount(error, errKey));
+								}			
 								rejected = true;
 							}
 						}
@@ -69,9 +87,18 @@ public class ErrorReport {
 						{
 							if (!d.getData().toString().equals(ldf.getAffiliate().getDivision().toString()))
 							{
-								ErrorRecord error = new ErrorRecord(407, ldf.getAffiliate(),
-										d.getName(), d.getData().toString());
-								errors.add(error);
+								String errKey = "407" + ldf.getAffiliate().getAffiliateName() + 
+										d.getName() + d.getData().toString();
+								if (errors.containsKey(errKey))
+								{
+									errors.get(errKey).increaseErrorCount();
+								}
+								else
+								{
+									ErrorRecord error = new ErrorRecord(407, ldf.getAffiliate(),
+											d.getName(), d.getData().toString());
+									errors.put(errKey, new ErrorRecordCount(error, errKey));
+								}			
 								rejected = true;
 							}
 						}
@@ -82,9 +109,18 @@ public class ErrorReport {
 							{
 								if (!Run.getRepository().isValidGlobalLov(d.getClass().getSimpleName(), lov))
 								{
-									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
-											d.getName(), d.getData().toString());
-									errors.add(error);
+									String errKey = "401" + ldf.getAffiliate().getAffiliateName() + 
+											d.getName() + d.getData().toString();
+									if (errors.containsKey(errKey))
+									{
+										errors.get(errKey).increaseErrorCount();
+									}
+									else
+									{
+										ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+												d.getName(), d.getData().toString());
+										errors.put(errKey, new ErrorRecordCount(error, errKey));
+									}			
 									rejected = true;
 								}
 							}
@@ -94,9 +130,18 @@ public class ErrorReport {
 								if (!Run.getRepository().isValidLocalLov(ldf.getAffiliate(), d.
 										getClass().getSimpleName().toLowerCase(), lov))
 								{
-									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
-											d.getName(), d.getData().toString());
-									errors.add(error);
+									String errKey = "401" + ldf.getAffiliate().getAffiliateName() + 
+											d.getName() + d.getData().toString();
+									if (errors.containsKey(errKey))
+									{
+										errors.get(errKey).increaseErrorCount();
+									}
+									else
+									{
+										ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+												d.getName(), d.getData().toString());
+										errors.put(errKey, new ErrorRecordCount(error, errKey));
+									}			
 									rejected = true;
 								}
 							}
@@ -122,9 +167,18 @@ public class ErrorReport {
 						catch (ParseException ex) {}
 						if (date == null) 
 						{
-							ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
-									d.getName(), d.getData().toString());
-							errors.add(error);
+							String errKey = "402" + ldf.getAffiliate().getAffiliateName() + 
+									d.getName() + d.getData().toString();
+							if (errors.containsKey(errKey))
+							{
+								errors.get(errKey).increaseErrorCount();
+							}
+							else
+							{
+								ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
+										d.getName(), d.getData().toString());
+								errors.put(errKey, new ErrorRecordCount(error, errKey));
+							}			
 							rejected = true;
 						}
 					}
@@ -132,9 +186,18 @@ public class ErrorReport {
 					{
 						if (!(d.getData() instanceof Double || d.getData() instanceof Integer))
 						{
-							ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
-									d.getName(), d.getData().toString());
-							errors.add(error);
+							String errKey = "402" + ldf.getAffiliate().getAffiliateName() + 
+									d.getName() + d.getData().toString();
+							if (errors.containsKey(errKey))
+							{
+								errors.get(errKey).increaseErrorCount();
+							}
+							else
+							{
+								ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
+										d.getName(), d.getData().toString());
+								errors.put(errKey, new ErrorRecordCount(error, errKey));
+							}			
 							rejected = true;
 						}
 					}
@@ -143,9 +206,18 @@ public class ErrorReport {
 						if (!d.getIsNull())
 						{
 							//TODO adjust error
-							ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
-									d.getName(), d.getData().toString());
-							errors.add(error);
+							String errKey = "401" + ldf.getAffiliate().getAffiliateName() + 
+									d.getName() + d.getData().toString();
+							if (errors.containsKey(errKey))
+							{
+								errors.get(errKey).increaseErrorCount();
+							}
+							else
+							{
+								ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+										d.getName(), d.getData().toString());
+								errors.put(errKey, new ErrorRecordCount(error, errKey));
+							}			
 							rejected = true;
 						}
 					}
@@ -160,7 +232,7 @@ public class ErrorReport {
 		}
 	}
 
-	public LinkedList<ErrorRecord> getErrors()
+	public HashMap<String, ErrorRecordCount> getErrors()
 	{
 		return this.errors;
 	}

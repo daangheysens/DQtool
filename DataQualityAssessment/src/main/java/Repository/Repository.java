@@ -18,6 +18,7 @@ public class Repository
 		this.fillLocalLovs();
 		this.fillGlobalLovs();
 		this.fillErrCodes();
+		this.fillIntegrationAffiliates();
 	}
 
 	private void fillAffiliates()
@@ -5806,40 +5807,44 @@ public class Repository
 
 	private void fillIntegrationAffiliates()
 	{
-		this.integrationAffiliates.add("PLSZ");
-		this.integrationAffiliates.add("ROAL");
-		this.integrationAffiliates.add("RUAL");
-		this.integrationAffiliates.add("BGAL");
-		this.integrationAffiliates.add("HRAL");
-		this.integrationAffiliates.add("HRPH");
-		this.integrationAffiliates.add("HRSZ");
-		this.integrationAffiliates.add("SIAL");
-		this.integrationAffiliates.add("BEAL");
-		this.integrationAffiliates.add("BEPH");
-		this.integrationAffiliates.add("BESZ");
-		this.integrationAffiliates.add("NLAL");
-		this.integrationAffiliates.add("NLPH");
-		this.integrationAffiliates.add("NlSZ");
-		this.integrationAffiliates.add("ATSZ");
-		this.integrationAffiliates.add("CZAL");
-		this.integrationAffiliates.add("GRAL");
-		this.integrationAffiliates.add("HUPH");
-		this.integrationAffiliates.add("TRAL");
-		this.integrationAffiliates.add("TRPH");
-		this.integrationAffiliates.add("PTSZ");
-		this.integrationAffiliates.add("DKAL");
-		this.integrationAffiliates.add("FIAL");
-		this.integrationAffiliates.add("NOAL");
-		this.integrationAffiliates.add("SEAL");
-		this.integrationAffiliates.add("BGPH");
-		this.integrationAffiliates.add("CYPH");
-		this.integrationAffiliates.add("EEPH");
-		this.integrationAffiliates.add("ITAL");
-		this.integrationAffiliates.add("LVPH");
-		this.integrationAffiliates.add("LTPH");
-		this.integrationAffiliates.add("MTPH");
-		this.integrationAffiliates.add("RSPH");
-		this.integrationAffiliates.add("SIPH");
+		this.integrationAffiliates.add("PL11");
+		this.integrationAffiliates.add("PL14");
+		this.integrationAffiliates.add("RO71");
+		this.integrationAffiliates.add("RU71");
+		this.integrationAffiliates.add("BG71");
+		this.integrationAffiliates.add("HR71");
+		this.integrationAffiliates.add("HR11");
+		this.integrationAffiliates.add("HR14");
+		this.integrationAffiliates.add("SI71");
+		this.integrationAffiliates.add("BE71");
+		this.integrationAffiliates.add("BE11");
+		this.integrationAffiliates.add("BE14");
+		this.integrationAffiliates.add("NL71");
+		this.integrationAffiliates.add("NL11");
+		this.integrationAffiliates.add("NL14");
+		this.integrationAffiliates.add("AT14");
+		this.integrationAffiliates.add("CZ71");
+		this.integrationAffiliates.add("GR71");
+		this.integrationAffiliates.add("HU11");
+		this.integrationAffiliates.add("TR71");
+		this.integrationAffiliates.add("TR11");
+		this.integrationAffiliates.add("PT71");
+		this.integrationAffiliates.add("PT14");
+		this.integrationAffiliates.add("ES71");
+		this.integrationAffiliates.add("ES14");
+		this.integrationAffiliates.add("DK71");
+		this.integrationAffiliates.add("FI71");
+		this.integrationAffiliates.add("NO71");
+		this.integrationAffiliates.add("SE71");
+		this.integrationAffiliates.add("BG11");
+		this.integrationAffiliates.add("CY11");
+		this.integrationAffiliates.add("EE11");
+		this.integrationAffiliates.add("IT71");
+		this.integrationAffiliates.add("LV11");
+		this.integrationAffiliates.add("LT11");
+		this.integrationAffiliates.add("MT11");
+		this.integrationAffiliates.add("SR11");
+		this.integrationAffiliates.add("SI11");
 	}
 	
 	public Affiliate searchAffiliate(String aff)

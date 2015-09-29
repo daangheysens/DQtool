@@ -1,7 +1,10 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import Repository.Repository;
@@ -47,85 +50,95 @@ public class Run {
 			}
 		}
 
-		/*
+
 		//CHECK SPEND - CR link
 		for (LocalDataFile ldf : files)
 		{
-			if (ldf instanceof SpendFile)
+			try 
 			{
 				SpendFile spendFile = (SpendFile) ldf;
-
 				if (repo.getIntegrationAffiliates().contains(spendFile.getAffiliate().getAffiliateName()))
 				{
 					boolean found = false;	
 					LocalDataFile crFile = null;
-
+					
 					Iterator<LocalDataFile> it = files.iterator();
 
-				    while(it.hasNext() && !found)
-				    {
-				       LocalDataFile fileToCheck = it.next();
-				       if (fileToCheck.getAffiliate() == spendFile.getAffiliate())
-				       {
-				    	   if (fileToCheck instanceof CRFile)
-				    	   {
-				    		   crFile = fileToCheck;
-				    		   found = true;
-				    	   }	 
-				       }
-				       //loop ends
+					while(it.hasNext() && !found)
+					{
+						LocalDataFile fileToCheck = it.next();
+						if (fileToCheck.getAffiliate() == spendFile.getAffiliate())
+						{
+							if (fileToCheck instanceof CRFile)
+							{
+								crFile = fileToCheck;
+								found = true;
+							}	 
+						}
+						//loop ends - 
 					}
 
-				    if (found)
-				    {
-				    	for (DataRecord spend : spendFile.getRecords())
-				    	{
-				    		SpendRecord record = (SpendRecord) spend;
-				    		String localcrid = record.getLocalCRID().getData().toString();
-				    		boolean foundId = false;
+					if (found)
+					{
+						for (DataRecord spend : spendFile.getRecords())
+						{
+							SpendRecord record = (SpendRecord) spend;
+							String localcrid = record.getLocalCRID().getData().toString();
+							boolean foundId = false;
 
-				    		Iterator<DataRecord> ite = crFile.getRecords().iterator();
+							Iterator<DataRecord> ite = crFile.getRecords().iterator();
 
-						    while(ite.hasNext() && !foundId)
-						    {
-						       CRRecord fileToCheck = (CRRecord) ite.next();
-						       if (fileToCheck.getLocalCRID1().getData().toString() == localcrid)
-						       {
-						    	   foundId = true;	 
-						       }
-						       else if (fileToCheck.getLocalCRID2().getData().toString() == localcrid)
-						       {
-						    	   foundId = true;	 
-						       }
-						       else if (fileToCheck.getLocalCRID3().getData().toString() == localcrid)
-						       {
-						    	   foundId = true;	 
-						       }
-						       //loop ends
+							while(ite.hasNext() && !foundId)
+							{
+								CRRecord fileToCheck = (CRRecord) ite.next();
+								if (fileToCheck.getLocalCRID1().getData().toString().equals(localcrid))
+								{
+									foundId = true;	 
+								}
+								else if (fileToCheck.getLocalCRID2().getData().toString().equals(localcrid))
+								{
+									foundId = true;	 
+								}
+								else if (fileToCheck.getLocalCRID3().getData().toString().equals(localcrid))
+								{
+									foundId = true;	 
+								}
 							}
 
-						    if (!foundId)
-						    {
-						    	ErrorRecord error = new ErrorRecord(412, ldf.getAffiliate(),
-										record.getLocalCRID().getName(),
-										record.getLocalCRID().getData().toString());
-						    	ldf.getErrorReport().getErrors().add(error);
-						    }
-				    	}
-				    }
-
+							if (!foundId)
+							{
+								String errKey = "412" + spendFile.getAffiliate().getAffiliateName() + 
+										record.getLocalCRID().getName() + 
+										record.getLocalCRID().getData().toString();
+								if (spendFile.getErrorReport().getErrors().containsKey(errKey))
+								{
+									spendFile.getErrorReport().getErrors().get(errKey).increaseErrorCount();
+								}
+								else
+								{
+									ErrorRecord error = new ErrorRecord(412, spendFile.getAffiliate(),
+											record.getLocalCRID().getName(), 
+											record.getLocalCRID().getData().toString());
+									spendFile.getErrorReport().getErrors().put(errKey, new ErrorRecordCount(error, errKey));
+								}	
+								record.didNotLoad();
+							}
+						}
+					}
 				}
 			}
+			catch (Exception ex)
+			{
+				//do nothing - not a spendfile
+			}
 		}
-		 */
-
 
 		//PRINT T_FILE_MONITOR EXRTRACT
 		if (tFileMonitor)
 		{
 			String pathToStoreErrors = "C:/Users/daan.gheysens/Desktop/DQAssessment/Output/files.csv"; 
 			FileWriter writer = new FileWriter(pathToStoreErrors);
-			
+
 			//
 			try 
 			{
@@ -197,22 +210,23 @@ public class Run {
 					else 
 						div = "AL";
 
-					LinkedList<ErrorRecord> toPrint = f.getErrorReport().getErrors();
+					Collection<ErrorRecordCount> toPrint = f.getErrorReport().getErrors().values();
 					if(toPrint != null)
 					{
-						for (ErrorRecord rec : toPrint)
+						for (ErrorRecordCount rec : toPrint)
 						{
 							writer.append(
-								"Id" + '\t' 
-								+ "prtl" + '\t'
-								+ rec.getAffiliate().getCountry() + '\t' 
-								+ div + '\t'
-								+ '\t' 
-								+ getRepository().getErrorDescription(rec.getErrorCode()) + '\t' 
-								+ rec.getErrorCode() + '\t' 
-								+ rec.getErrColumnName() + '\t' 
-								+ rec.getErrColumnValue() + '\t'
-								+ type + '\n');
+									"Id" + '\t' 
+											+ "prtl" + '\t'
+											+ rec.getErrorRecord().getAffiliate().getCountry() + '\t' 
+											+ div + '\t'
+											+ '\t' 
+											+ getRepository().getErrorDescription(rec.getErrorRecord().getErrorCode()) + '\t' 
+											+ rec.getErrorRecord().getErrorCode() + '\t' 
+											+ rec.getErrorRecord().getErrColumnName() + '\t' 
+											+ rec.getErrorRecord().getErrColumnValue() + '\t'
+											+ type + '\t'
+											+ rec.getErrorCount() + '\n');
 						}
 					}
 				}
