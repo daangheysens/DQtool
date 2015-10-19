@@ -43,9 +43,9 @@ public class SpendRecord extends DataRecord
 	private LastName crlastname;
 	private AddressLine craddressline1;
 	private City crcity;
-	private Country crcountry;
+	private CRCountry crcountry;
 	private ZipCode crzipcode;
-	private Specialty crspeciality;
+	private CRSpecialty crspeciality;
 	private PONumber spendponumber;
 	private PaymentMethod paymentmethod;
 	private PaymentForm paymentform;
@@ -102,6 +102,9 @@ public class SpendRecord extends DataRecord
 		super();
 		this.file = file;
 
+		
+		
+		//OLD
 		this.spendid = new SpendId(fields.get(0));
 		this.division = new Division(fields.get(1));
 		this.country = new Country(fields.get(2));
@@ -125,21 +128,14 @@ public class SpendRecord extends DataRecord
 		this.xborderflag = new XBorderFlag(fields.get(20));
 		this.payeename = new PayeeName(fields.get(21));
 		this.payingdivision = new Division(fields.get(22));
-		this.payingcountry = new Country(fields.get(23));
-		//TODO changed name
-		this.payingcountry.setName("payingcountry");
-		this.payingdivision.setName("payingdivision");
-		
+		this.payingcountry = new Country(fields.get(23));		
 		this.crfirstname = new FirstName(fields.get(24));
 		this.crlastname = new LastName(fields.get(25));
 		this.craddressline1 = new AddressLine(fields.get(26));
 		this.crcity = new City(fields.get(27));
-		this.crcountry = new Country(fields.get(28));
-		//TODO changed name
-		this.crcountry.setName("crcountry");
-		
+		this.crcountry = new CRCountry(fields.get(28));
 		this.crzipcode = new ZipCode(fields.get(29));
-		this.crspeciality = new Specialty(fields.get(30));
+		this.crspeciality = new CRSpecialty(fields.get(30));
 		this.spendponumber = new PONumber(fields.get(31));
 		this.paymentmethod = new PaymentMethod(fields.get(32));
 		this.paymentform = new PaymentForm(fields.get(33));
@@ -153,9 +149,6 @@ public class SpendRecord extends DataRecord
 		this.payeestate_province = new StateProvinceRegionCounty(fields.get(41));
 		this.payeezip = new ZipCode(fields.get(42));
 		this.payeecountry = new Country(fields.get(43));
-		//TODO changed name
-		this.payeecountry.setName("payeecountry");
-		
 		this.payeetin_npi_duns = new PayeeTIN(fields.get(44));
 		this.productname2 = new Product(fields.get(45));
 		this.productname3 = new Product(fields.get(46));
@@ -185,10 +178,6 @@ public class SpendRecord extends DataRecord
 		this.reasonforchange = new ReasonForChange(fields.get(70));
 		this.lodgingcity = new City(fields.get(71));
 		this.lodgingcountry = new Country(fields.get(72));
-		
-		//TODO changed name
-		this.lodgingcountry.setMandatory(false);
-		
 		this.customerclaims = new CustomerClaims(fields.get(73));
 		this.submissionstatus = new SubmissionStatus(fields.get(74));
 		this.linkagewithcontract = new LinkageWithContract(fields.get(75));
@@ -197,7 +186,12 @@ public class SpendRecord extends DataRecord
 		this.sapvendorid = new SAPVendorId(fields.get(78));
 		this.accountingdocumentnumber = new AccountingDocumentNumber(fields.get(79));		
 		
-		//set optional fields
+		//set changes
+		this.lodgingcountry.setMandatory(false);
+		this.payeecountry.setName("payeecountry");
+		this.crcountry.setName("crcountry");
+		this.payingcountry.setName("payingcountry");
+		this.payingdivision.setName("payingdivision");
 		this.payeecountry.setMandatory(false);
 		this.pilocalcrid1.setMandatory(false);
 		this.pilocalcrid2.setMandatory(false);
@@ -365,6 +359,16 @@ public class SpendRecord extends DataRecord
 	{
 		LinkedList<DataElement> list = this.configureElementsList();
 		return list;
+	}
+	
+	public SpendAmount getSpendAmount()
+	{
+		return this.spendamount;
+	}
+	
+	public Currency getSpendCurrency()
+	{
+		return this.spendcurrency;
 	}
 
 

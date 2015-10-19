@@ -38,36 +38,34 @@ public class LoadFiles {
 		HashSet<String> filesToLoad = new HashSet<String>();
 		//all filenames to be added here
 		
-		//============ ERRONEOUS
-		
-		
-	
-		//============= GOOD
-		
-		//Out of memory
-		filesToLoad.add("CR_PortalMassUpload_AT_SZ_41864_Milestone2.xlsx");
-		filesToLoad.add("CR_PortalMassUpload_HU_PH_32728_Milestone2.xlsx");
-		
-		
-		//FIXED FILES
-		//ERROR values in Excel
-		filesToLoad.add("Spend_PortalMassUpload_SE_PH_97_Milestone2.xlsx");
-		filesToLoad.add("Spend_PortalMassUpload_DK_SZ_016_Milestone2.xlsx");
-		filesToLoad.add("Spend_PortalMassUpload_FI_PH_145_Milestone2.xlsx");
-		filesToLoad.add("Spend_PortalMassUpload_NO_SZ_050_Milestone2.xlsx");
+		//new
+		filesToLoad.add("CR_PortalMassUpload_CY_PH.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_CY_PH.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_DK_SZ_074_Milestone2.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_FI_SZ_014_Milestone2.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_NO_SZ_016_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_SE_SZ_050_Milestone2.xlsx");
 		
-		//Data Validation lists
-		filesToLoad.add("Spend_PortalMassUpload_GR_PH_042_Deadline2.xlsx");
-		
-		//INCORRECT FILE SYNTAX
+		//no DPA
+		//filesToLoad.add("Spend_PortalMassUpload_GR_PH_042_Deadline2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_PL_PH_204_Milestone2.xlsx");
-		
-		//FileNotFoundException
-		//retired filesToLoad.add("CR_PortalMassUpload_PL_PH_117_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_PL_PH_999_Milestone2.xlsx");
+		//filesToLoad.add("CR_PortalMassUpload_GR_AL_13_Milestone2.xlsx");
+		//filesToLoad.add("Spend_PortalMassUpload_GR_AL_16_Milestone2.xlsx");
 		
+		//dummy
+		filesToLoad.add("CR_PortalMassUpload_PL_SZ_004_Milestone2.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_PL_SZ_004_Milestone2.xlsx");
+		
+		//EXTRA
+		//IEPH RELOAD
+		filesToLoad.add("Spend_PortalMassUpload_IE_PH_234_Milestone2.xlsx");
+
 		//NO ERROR
+		filesToLoad.add("CR_PortalMassUpload_AT_SZ_41864_Milestone2.xlsx");
+		filesToLoad.add("CR_PortalMassUpload_HU_PH_32728_Milestone2.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_SE_PH_97_Milestone2.xlsx");
+		filesToLoad.add("Spend_PortalMassUpload_FI_PH_145_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_AT_SZ_144_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_HR_PH_031_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_SI_AL_003_Milestone2.xlsx");
@@ -78,14 +76,12 @@ public class LoadFiles {
 		filesToLoad.add("CR_PortalMassUpload_DK_AL_010_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_ES_AL_1491_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_FI_AL_002_Milestone2.xlsx");
-		filesToLoad.add("CR_PortalMassUpload_GR_AL_13_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_HR_AL_011.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_HR_PH_031_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_HR_SZ_062_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_NL_PH_50_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_NL_SZ_15_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_NO_AL_002_Milestone2.xlsx");
-		filesToLoad.add("CR_PortalMassUpload_PL_SZ_004_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_PT_AL_053_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_RO_AL_127_Milestone2.xlsx");
 		filesToLoad.add("CR_PortalMassUpload_RO_PH_017_Milestone2.xlsx");
@@ -107,17 +103,13 @@ public class LoadFiles {
 		filesToLoad.add("Spend_PortalMassUpload_ES_AL_3205_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_ES_SZ_3_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_FI_AL_002_Milestone2.xlsx");
-		filesToLoad.add("Spend_PortalMassUpload_FI_SZ_002_Milestone2.xlsx");
-		filesToLoad.add("Spend_PortalMassUpload_GR_AL_16_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_HR_AL_013.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_HR_SZ_089_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_HU_PH_910_Milestone2.xlsx");
-		filesToLoad.add("Spend_PortalMassUpload_IE_PH_319_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_NL_PH_61_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_NL_SZ_33_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_NO_AL_002_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_NO_PH_121_Milestone2.xlsx");
-		filesToLoad.add("Spend_PortalMassUpload_PL_SZ_004_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_PT_AL_100_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_RO_AL_149_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_RU_AL_316_Milestone2.xlsx");
@@ -126,6 +118,7 @@ public class LoadFiles {
 		filesToLoad.add("Spend_PortalMassUpload_SE_AL_030_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_TR_AL_200_Milestone2.xlsx");
 		filesToLoad.add("Spend_PortalMassUpload_TR_PH_999_Milestone2.xlsx");
+		filesToLoad.add("CR_PortalMassUpload_PT_SZ_272_Milestone2.xlsx");
 		// ...
 		// ...
 		// ...
@@ -186,6 +179,7 @@ public class LoadFiles {
 					catch (Exception ex)
 					{
 						System.out.println("Error loading spends");
+						System.out.println(f);
 					}
 				}
 			}

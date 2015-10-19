@@ -22,7 +22,6 @@ public class ErrorReport {
 
 	private HashMap<String, ErrorRecordCount> errors = new HashMap<String, ErrorRecordCount>();
 	private LocalDataFile file;
-	private int rejectedRecords = 0;
 
 	public ErrorReport(LocalDataFile f)
 	{
@@ -145,9 +144,21 @@ public class ErrorReport {
 									rejected = true;
 								}
 							}
-							else 
+							else //Local LoV not defined for affiliate
 							{
-								//is not defined for this affiliate
+								String errKey = "401" + ldf.getAffiliate().getAffiliateName() + 
+										d.getName() + "LoV not defined"; //d.getData().toString();
+								if (errors.containsKey(errKey))
+								{
+									errors.get(errKey).increaseErrorCount();
+								}
+								else
+								{
+									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
+											d.getName(), "LoV not defined"); //d.getData().toString());
+									errors.put(errKey, new ErrorRecordCount(error, errKey));
+								}			
+								rejected = true;
 							}
 						}
 					}
@@ -184,7 +195,7 @@ public class ErrorReport {
 					}
 					else if (d.getNumeric())
 					{
-						if (!(d.getData() instanceof Double || d.getData() instanceof Integer))
+						if (!(d.getData().toString().matches("[0-9]+([,.][0-9]{1,2})?")))
 						{
 							String errKey = "402" + ldf.getAffiliate().getAffiliateName() + 
 									d.getName() + d.getData().toString();
@@ -226,7 +237,6 @@ public class ErrorReport {
 			}
 			if (rejected)
 			{
-				this.rejectedRecords++;
 				r.didNotLoad();
 			}
 		}
@@ -237,9 +247,6 @@ public class ErrorReport {
 		return this.errors;
 	}
 
-	public int getRejectedRecords()
-	{
-		return this.rejectedRecords;
-	}
+
 
 }

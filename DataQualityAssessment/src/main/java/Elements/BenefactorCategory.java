@@ -19,7 +19,7 @@ public class BenefactorCategory extends DataElement {
 		this.numeric = false;
 		this.date = false;
 		this.lov = true;
-		this.elementName = "LastName";	
+		this.elementName = "BenefactorCategory";	
 	}
 
 }

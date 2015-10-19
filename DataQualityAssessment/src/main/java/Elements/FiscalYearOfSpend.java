@@ -1,4 +1,5 @@
 /**
+
  * 
  */
 package Elements;
@@ -18,6 +19,16 @@ public class FiscalYearOfSpend extends DataElement {
 		this.numeric = true;
 		this.date = false;
 		this.lov = false;
+		
+		try 
+		{
+			this.dataField = Integer.parseInt((String) dataField);
+		}
+		catch (Exception ex)
+		{
+			this.dataField = dataField;
+		}
+		
 		this.elementName = "FiscalYearOfSpend";
 	}
 

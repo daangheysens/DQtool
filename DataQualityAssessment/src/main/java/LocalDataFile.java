@@ -18,6 +18,7 @@ public abstract class LocalDataFile {
 	protected Affiliate affiliate;
 	protected ErrorReport errorReport;
 	protected LinkedList<DataRecord> records = new LinkedList<DataRecord>();
+	protected int rejectedRecords = 0;
 	
 	public LocalDataFile(Affiliate aff) 
 	{
@@ -53,5 +54,24 @@ public abstract class LocalDataFile {
 	{
 		this.records.add(record);
 	}
+	
+	public void setRejectedRecords()
+	{
+		this.rejectedRecords = 0;
+		for(DataRecord d : this.records)
+		{
+			if (!d.isLoaded())
+			{
+				this.rejectedRecords++;
+			}
+		}
+	}
+	
+	public int getRejectedRecords()
+	{
+		return this.rejectedRecords;
+	}
+	
+	
 
 }

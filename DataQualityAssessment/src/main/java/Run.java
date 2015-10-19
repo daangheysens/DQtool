@@ -49,8 +49,7 @@ public class Run {
 				ldf.generateErrorReport();
 			}
 		}
-
-
+		
 		//CHECK SPEND - CR link
 		for (LocalDataFile ldf : files)
 		{
@@ -132,6 +131,17 @@ public class Run {
 				//do nothing - not a spendfile
 			}
 		}
+		
+		//COUNT REJECTED RECORDS
+				if (generateErrReport)
+				{
+					for (LocalDataFile ldf : files)
+					{
+						ldf.setRejectedRecords();
+					}
+				}
+
+		
 
 		//PRINT T_FILE_MONITOR EXRTRACT
 		if (tFileMonitor)
@@ -170,7 +180,7 @@ public class Run {
 							+ '\t'  
 							+ f.getAffiliate().getCountry() + div + '\t' 
 							+ '\t' 
-							+ f.getErrorReport().getRejectedRecords() + '\n');
+							+ f.getRejectedRecords() + '\n');
 				}
 				writer.flush();
 				writer.close();
@@ -180,6 +190,8 @@ public class Run {
 				System.out.println("Error in T_FILE_MONITOR extract");
 			}
 		}
+		
+		
 
 		//PRINT T_ERR_AUDIT EXTRACT		
 		if (tErrAudit)
@@ -216,11 +228,9 @@ public class Run {
 						for (ErrorRecordCount rec : toPrint)
 						{
 							writer.append(
-									"Id" + '\t' 
-											+ "prtl" + '\t'
+											"prtl" + '\t'
 											+ rec.getErrorRecord().getAffiliate().getCountry() + '\t' 
 											+ div + '\t'
-											+ '\t' 
 											+ getRepository().getErrorDescription(rec.getErrorRecord().getErrorCode()) + '\t' 
 											+ rec.getErrorRecord().getErrorCode() + '\t' 
 											+ rec.getErrorRecord().getErrColumnName() + '\t' 
@@ -238,6 +248,64 @@ public class Run {
 				System.out.println("Error in T_ERR_AUDIT extract");
 			}
 		}
+		
+		/*
+		//total amount of spends
+		if (tErrAudit)
+		{
+			String pathToStoreErrors = "C:/Users/daan.gheysens/Desktop/DQAssessment/Output/spendamounts.csv"; 
+			FileWriter writer = new FileWriter(pathToStoreErrors);
+			try
+			{
+				for (LocalDataFile f : files)
+				{
+					String type;
+					try
+					{
+						CRFile test = (CRFile) f;
+						type = "T_CR";
+					}
+					catch (Exception ex)
+					{
+						SpendFile test = (SpendFile) f;
+						type = "T_SPND";
+						
+						String div;
+						if (f.getAffiliate().getDivision() == "11")
+							div = "PH";
+						else if (f.getAffiliate().getDivision() == "14")
+							div = "SZ";
+						else 
+							div = "AL";
+						
+						LinkedList<DataRecord> spendRecords = f.getRecords();
+						
+						for (DataRecord dataRec : spendRecords)
+						{
+							try
+							{
+								SpendRecord sp = (SpendRecord) dataRec;
+								
+								writer.append(
+									sp.getAffiliate().getCountry() + '\t' 
+									+ div + '\t'
+									+ type + '\t'
+									+ sp.getSpendAmount().getData().toString() + '\t' 
+									+ sp.getSpendCurrency().getData().toString() + '\n');	
+							}
+							catch (Exception exc) {System.out.println("error in printing");}	
+						}
+					}
+				}
+				writer.flush();
+				writer.close();
+			}
+			catch (Exception ex)
+			{
+				System.out.println("Error in total amount of spends extract");
+			}
+		}
+		*/
 
 		//END MAIN
 	}
