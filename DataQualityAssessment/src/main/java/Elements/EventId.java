@@ -15,6 +15,12 @@ public class EventId extends DataElement {
 	public EventId(Object dataField) 
 	{
 		super(dataField);
+		try 
+		{
+			double id = Double.parseDouble((String) dataField);
+			this.dataField = id;
+		}
+		catch (Exception ex) {}
 		this.mandatory = false;
 		this.numeric = true;
 		this.date = false;

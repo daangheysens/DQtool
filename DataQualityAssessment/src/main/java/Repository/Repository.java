@@ -119,7 +119,6 @@ public class Repository
 		HashSet<String> cz11eventtype = new HashSet<String>();
 		HashSet<String> cz11idtype = new HashSet<String>();
 		HashSet<String> cz11specialty = new HashSet<String>();
-
 		HashSet<String> cz71crtype = new HashSet<String>();
 		HashSet<String> cz71currency = new HashSet<String>();
 		HashSet<String> cz71idtype = new HashSet<String>();
@@ -268,10 +267,8 @@ public class Repository
 		HashSet<String> si11idtype = new HashSet<String>();
 		HashSet<String> si71crtype = new HashSet<String>();
 		HashSet<String> si71idtype = new HashSet<String>();
-		//TODO
 		HashSet<String> tr11crtype = new HashSet<String>();
 		HashSet<String> tr11idtype = new HashSet<String>();
-
 		HashSet<String> tr71benefactorcategory = new HashSet<String>();
 		HashSet<String> tr71contracttype = new HashSet<String>();
 		HashSet<String> tr71crtype = new HashSet<String>();
@@ -279,7 +276,6 @@ public class Repository
 		HashSet<String> tr71title = new HashSet<String>();
 		HashSet<String> ua11crtype = new HashSet<String>();
 		HashSet<String> ua11idtype = new HashSet<String>();
-		
 		HashSet<String> be11currency = new HashSet<String>();
 		HashSet<String> be14currency = new HashSet<String>();
 		HashSet<String> be71currency = new HashSet<String>();
@@ -333,16 +329,7 @@ public class Repository
 		hu11benefactorcategory.add("XBORDER");
 		hu11benefactorcategory.add("PROFS");
 		hu11benefactorcategory.add("PATRG");
-		hu11benefactorcategory.add("FOUND");
-		hu11benefactorcategory.add("NA");
-		pt14benefactorcategory.add("Hosp");
-		pt14benefactorcategory.add("Uni");
-		pt14benefactorcategory.add("Mkt");
-		pt14benefactorcategory.add("Int");
-		pt14benefactorcategory.add("Stu");
-		pt14benefactorcategory.add("Ass");
-		pt14benefactorcategory.add("Fou");
-		pt14benefactorcategory.add("NA");
+		hu11benefactorcategory.add("FOUND");	
 		ro71benefactorcategory.add("AMD");
 		ro71benefactorcategory.add("ASP");
 		ro71benefactorcategory.add("CLN");
@@ -462,20 +449,18 @@ public class Repository
 		at14crtype.add("Vorstand");
 		at14crtype.add("Wahlarzt");
 		at14crtype.add("Wohnsitzarzt");
+		at14crtype.add("Gesellschaft/Holding");
+		at14crtype.add("Ordinationshilfe");
 		be11crtype.add("DOCN");
 		be11crtype.add("HOSP");
 		be11crtype.add("HCPR");
 		be11crtype.add("HCOR");
-		be11crtype.add("PAGR");
 		be14crtype.add("DOCN");
 		be14crtype.add("HOSP");
 		be14crtype.add("HCPR");
 		be14crtype.add("HCOR");
-		be14crtype.add("PAGR");
 		be71crtype.add("HCP");
 		be71crtype.add("HCO");
-		be71crtype.add("PatGr");
-		be71crtype.add("Other");
 		bg11crtype.add("DOCN");
 		bg11crtype.add("HOSP");
 		bg11crtype.add("HCPR");
@@ -484,16 +469,18 @@ public class Repository
 		bg11crtype.add("PUBL");
 		bg71crtype.add("HCP");
 		bg71crtype.add("HCO");
-		bg71crtype.add("Other");
 		cy11crtype.add("HCP");
 		cy11crtype.add("HCO");
 		cy11crtype.add("PatGr");
-		cy11crtype.add("Other");
 		cz11crtype.add("DOCN");
 		cz11crtype.add("HCPR");
 		cz11crtype.add("HCOR");
 		cz11crtype.add("PAGR");
 		cz11crtype.add("HOSP ");
+		cz11crtype.add("Nemocnice HH");
+		cz11crtype.add("Poliklinika EE");
+		cz11crtype.add("Praxe EE");
+		cz11crtype.add("Rozmanitý EE");
 		cz71crtype.add("Government Organization");
 		cz71crtype.add("Government Organization - New");
 		cz71crtype.add("Health Care Center & Private Practice");
@@ -512,8 +499,6 @@ public class Repository
 		cz71crtype.add("Pharmacy - New");
 		cz71crtype.add("Professional");
 		cz71crtype.add("Professional - New");
-		cz71crtype.add("SAP_IMS Account");
-		cz71crtype.add("Virtual Account");
 		dk11crtype.add("DK-A-Administrativ");
 		dk11crtype.add("DK-A-Lægepraksis");
 		dk11crtype.add("DK-B-Optiker");
@@ -603,7 +588,6 @@ public class Repository
 		dk71crtype.add("HCP");
 		dk71crtype.add("HCO");
 		dk71crtype.add("PatGr");
-		dk71crtype.add("Other");
 		ee11crtype.add("DOCN");
 		ee11crtype.add("HCPR");
 		ee11crtype.add("HOSP");
@@ -619,9 +603,7 @@ public class Repository
 		es14crtype.add("CRT138");
 		es14crtype.add("CRT96");
 		es71crtype.add("Allergist");
-		es71crtype.add("ENT");
 		es71crtype.add("Fellow");
-		es71crtype.add("Financial-Administrative");
 		es71crtype.add("General Practitioner");
 		es71crtype.add("Nurse");
 		es71crtype.add("Ophthalmologist");
@@ -633,11 +615,8 @@ public class Repository
 		es71crtype.add("Resident");
 		es71crtype.add("Dispensing Optician");
 		es71crtype.add("Contact Lens Optician");
-		es71crtype.add("Other");
 		es71crtype.add("Optician");
 		es71crtype.add("Chemist");
-		es71crtype.add("Financial Executive");
-		es71crtype.add("Non Medical Practitioner");
 		es71crtype.add("Orthoptist");
 		es71crtype.add("HCO");
 		fi11crtype.add("FI-A-Hallinto");
@@ -729,10 +708,10 @@ public class Repository
 		fi14crtype.add("Physician");
 		fi14crtype.add("Pharmacy");
 		fi14crtype.add("Sub-Pharmacy");
+		fi14crtype.add("Clinic/departement of social work...");
 		fi71crtype.add("HCP");
 		fi71crtype.add("HCO");
 		fi71crtype.add("PatGr");
-		fi71crtype.add("Other");
 		gr11crtype.add("DOCN");
 		gr11crtype.add("HOSP");
 		gr11crtype.add("ΝΡΟ");
@@ -760,12 +739,11 @@ public class Repository
 		hr11crtype.add("HCP");
 		hr11crtype.add("HCO");
 		hr11crtype.add("PO");
-		hr14crtype.add("HCP ");
+		hr14crtype.add("HCP");
 		hr14crtype.add("HCO");
 		hr14crtype.add("PO");
 		hr71crtype.add("HCP");
 		hr71crtype.add("HCO");
-		hr71crtype.add("Other");
 		hu11crtype.add("DOCP");
 		hu11crtype.add("NURP");
 		hu11crtype.add("COMP");
@@ -799,6 +777,12 @@ public class Repository
 		ie11crtype.add("Public Health");
 		ie11crtype.add("Nurse");
 		ie11crtype.add("Other inc Locum");
+		it71crtype.add("INTASC");
+		it71crtype.add("JRNLST");
+		it71crtype.add("HCO");
+		it71crtype.add("PT_GRP");
+		it71crtype.add("HCP");
+		it71crtype.add("STDNT");
 		lt11crtype.add("DOCN");
 		lt11crtype.add("HCPR");
 		lt11crtype.add("HOSP");
@@ -815,23 +799,19 @@ public class Repository
 		mt11crtype.add("HCOR");
 		mt11crtype.add("PAGR");
 		mt11crtype.add("PUBL");
-		mt11crtype.add("DUNS");
 		nl11crtype.add("DOCN");
 		nl11crtype.add("HOSP");
 		nl11crtype.add("HCPR");
 		nl11crtype.add("HCOR");
 		nl11crtype.add("PAGR");
-		nl11crtype.add("PRPE");
 		nl14crtype.add("DOCN");
 		nl14crtype.add("HCPR");
 		nl14crtype.add("HOSP");
 		nl14crtype.add("HCOR");
 		nl14crtype.add("PAGR");
-		nl14crtype.add("PRPE");
 		nl71crtype.add("HCP");
 		nl71crtype.add("HCO");
 		nl71crtype.add("PatGr");
-		nl71crtype.add("Other");
 		no11crtype.add("NO-A-Administrativ");
 		no11crtype.add("NO-A-Apotek");
 		no11crtype.add("NO-C-Legepraksis");
@@ -932,7 +912,6 @@ public class Repository
 		no71crtype.add("HCP");
 		no71crtype.add("HCO");
 		no71crtype.add("PatGr");
-		no71crtype.add("Other");
 		pl11crtype.add("Administrative");
 		pl11crtype.add("Ambulatories");
 		pl11crtype.add("Chemist");
@@ -978,6 +957,12 @@ public class Repository
 		pl11crtype.add("-");
 		pl14crtype.add("HCP");
 		pl14crtype.add("HCO");
+		pt11crtype.add("Sociedades Médicas...");
+		pt11crtype.add("Administrativo");
+		pt11crtype.add("Aluno");
+		pt11crtype.add("Assistente Social");
+		pt11crtype.add("Biólogo");
+		pt11crtype.add("Professor");
 		pt11crtype.add("Dentista");
 		pt11crtype.add("Médico");
 		pt11crtype.add("Técnico Saúde");
@@ -1016,6 +1001,7 @@ public class Repository
 		pt14crtype.add("Profissional de Saúde  - Enfermeiro");
 		pt14crtype.add("Profissional de Saúde - Outros");
 		pt14crtype.add("Pessoa Singular");
+		pt14crtype.add("Sociedades Médicas...");
 		pt71crtype.add("Allergist");
 		pt71crtype.add("ENT");
 		pt71crtype.add("Fellow");
@@ -1048,6 +1034,7 @@ public class Repository
 		pt71crtype.add("Outras Instituições de Saúde");
 		pt71crtype.add("Sociedades Médicas/Associações de Investigação/de Estudos Clínicos");
 		pt71crtype.add("Outros Coletivos");
+		pt71crtype.add("Sociedades Médicas...");
 		ro11crtype.add("HCP");
 		ro11crtype.add("HCO");
 		ro11crtype.add("PAGR");
@@ -1158,7 +1145,6 @@ public class Repository
 		se71crtype.add("HCP");
 		se71crtype.add("HCO");
 		se71crtype.add("PatGr");
-		se71crtype.add("Other");
 		si11crtype.add("DOCN");
 		si11crtype.add("HOSP");
 		si11crtype.add("HCPR");
@@ -1167,13 +1153,11 @@ public class Repository
 		si11crtype.add("PUBL");
 		si71crtype.add("HCP");
 		si71crtype.add("HCO");
-		si71crtype.add("Other");
 		tr11crtype.add("HCP");
 		tr11crtype.add("HCO");
-		tr11crtype.add("Other");
-		tr71crtype.add("DR");
-		tr71crtype.add("ECZ");
-		tr71crtype.add("HEM");
+		tr11crtype.add("PT_GRP");
+		tr71crtype.add("HCP");
+		tr71crtype.add("HCO");
 		ua11crtype.add("DOCN");
 		ua11crtype.add("HOSP");
 		ua11crtype.add("HCPR");
@@ -1263,28 +1247,41 @@ public class Repository
 		ie11eventtype.add("ETYP53");
 		it71eventtype.add("ETYP21");
 		it71eventtype.add("ETYP54");
+		it71eventtype.add("1");
+		it71eventtype.add("2");
 		ro71eventtype.add("Masa rotunda");
 		ro71eventtype.add("Congres");
 		ro71eventtype.add("Consultanta stiintifica / orator");
 		ro71eventtype.add("Instruire personal medical");
 		ro71eventtype.add("Socializare");
 		ro71eventtype.add("Prezentare ");
+		at11idtype.add("Veeva ID");
+		at11idtype.add("SAP ID");
 		at11idtype.add("CRID14");
-		at11idtype.add("SAP");
 		at14idtype.add("Marketing Manager ID");
 		at14idtype.add("SAP");
 		be11idtype.add("SAP");
 		be11idtype.add("RISIV/INAMI");
 		be11idtype.add("TAXID");
 		be11idtype.add("OTHER");
+		be11idtype.add("INAMI");
+		be11idtype.add("NationalRegisterID");
 		be14idtype.add("SAP");
 		be14idtype.add("RIZIV/INAMI");
 		be14idtype.add("OTHER");
+		be14idtype.add("RIZIV");
+		be14idtype.add("BTW");
+		be14idtype.add("RRN");
+		be14idtype.add("APB");
 		be71idtype.add("RIZIV");
 		be71idtype.add("TAV number");
+		be71idtype.add("KBO Number");
+		be71idtype.add("RIZIV");
+		be71idtype.add("VAT number");
 		bg11idtype.add("CRID02");
 		bg11idtype.add("UIN");
 		bg11idtype.add("SAP");
+		bg11idtype.add("UIN");
 		bg71idtype.add("JDEID");
 		bg71idtype.add("SALSAID");
 		bg71idtype.add("CRID31");
@@ -1296,8 +1293,8 @@ public class Repository
 		cz11idtype.add("CLKID");
 		cz11idtype.add("SAP");
 		cz11idtype.add("ICOID");
-		cz71idtype.add("CRID14");
-		cz71idtype.add("SAP");
+		cz71idtype.add("SAP ID");
+		cz71idtype.add("Veeva ID");
 		dk11idtype.add("OneKeyID");
 		dk11idtype.add("Cpr-nr.");
 		dk14idtype.add("OneKeyID");
@@ -1329,7 +1326,6 @@ public class Repository
 		fi71idtype.add("Salsa");
 		fi71idtype.add("VISMA");
 		gr11idtype.add("Veeva");
-		gr11idtype.add("SAP");
 		gr11idtype.add("AFM");
 		gr11idtype.add("AMKA");
 		gr71idtype.add("JDE");
@@ -1354,6 +1350,7 @@ public class Repository
 		hr71idtype.add("CRID31");
 		hu11idtype.add("SAP");
 		hu11idtype.add("HCPID");
+		hu11idtype.add("HCOID");
 		hu11idtype.add("NURID");
 		ie11idtype.add("SAP");
 		ie11idtype.add("CRID13");
@@ -1437,7 +1434,7 @@ public class Repository
 		si71idtype.add("CRID34");
 		si71idtype.add("CRID36");
 		si71idtype.add("CRID31");
-		tr11idtype.add("AGR ");
+		tr11idtype.add("AGR");
 		tr11idtype.add("LID");
 		tr71idtype.add("CRID36");
 		tr71idtype.add("CRID34");
@@ -1476,6 +1473,7 @@ public class Repository
 		mt11currency.add("EUR");
 		nl11currency.add("EUR");
 		nl14currency.add("EUR");
+		
 		nl71currency.add("EUR");
 		no11currency.add("NOK");
 		no14currency.add("NOK");
@@ -1619,7 +1617,15 @@ public class Repository
 		at14specialty.add("SPEC59");
 		at14specialty.add("SPEC60");
 		at14specialty.add("SPEC61");
-		be71specialty.add("SPEC1");
+		be71specialty.add("Hospital director ");
+		be71specialty.add("Hospital technician");
+		be71specialty.add("Nurse");
+		be71specialty.add("Optician");
+		be71specialty.add("Pharmacist ");
+		be71specialty.add("Pharmacist's assistant");
+		be71specialty.add("Physician");
+		be71specialty.add("Purchasing responsible (hospital)");
+		be71specialty.add("Wholesaler");
 		cz11specialty.add("SPEC1");
 		cz11specialty.add("SPEC2");
 		cz11specialty.add("SPEC3");
@@ -1891,6 +1897,7 @@ public class Repository
 		pt14submissionstatus.add("MOD");
 		pt14submissionstatus.add("SUP");
 		pt14submissionstatus.add("VAL");
+		at11title.add("MSc  Dr.med.");
 		at11title.add("a.o. Univ.Prof. DDr.med.");
 		at11title.add("a.o. Univ.Prof. Dr.med.");
 		at11title.add("Ass. DDr. med.");
@@ -2282,6 +2289,7 @@ public class Repository
 		at14title.add("UnivProf.Mag.Dr.");
 		at14title.add("VPr.Dr.");
 		at14title.add("WHR Dr.");
+		at14title.add("DDr.PHD");
 		bg71title.add("Доктор");
 		bg71title.add("Професор");
 		bg71title.add("Dr");
@@ -2533,6 +2541,27 @@ public class Repository
 		ie11title.add("[M3]");
 		ie11title.add("[P1]");
 		ie11title.add("[N1]");
+		ie11title.add("[A1]");
+		ie11title.add("[B1]");
+		ie11title.add("[C1]");
+		ie11title.add("[C2]");
+		ie11title.add("[D2]");
+		ie11title.add("[D3]");
+		ie11title.add("[F1]");
+		ie11title.add("[L1]");
+		ie11title.add("[M4]");
+		ie11title.add("[M5]");
+		ie11title.add("[M6]");
+		ie11title.add("[M7]");
+		ie11title.add("[M8]");
+		ie11title.add("[M9]");
+		ie11title.add("[N2]");
+		ie11title.add("[P2]");
+		ie11title.add("[R1]");
+		ie11title.add("[R2]");
+		ie11title.add("[S1]");
+		ie11title.add("[S2]");
+		ie11title.add("[S3]");
 		it71title.add("DR");
 		it71title.add("PR");
 		it71title.add("ST");
@@ -2553,9 +2582,6 @@ public class Repository
 		rs71title.add("Prof");
 		tr71title.add("HEM");
 
-		
-		
-		
 		//store lists in dictionary
 		this.localLovs.put("at11crtype", at11crtype);
 		this.localLovs.put("at11currency", at11currency);
@@ -2741,7 +2767,6 @@ public class Repository
 		this.localLovs.put("si11idtype", si11idtype);
 		this.localLovs.put("si71crtype", si71crtype);
 		this.localLovs.put("si71idtype", si71idtype);
-		//TODO
 		this.localLovs.put("tr11crtype", tr11crtype);
 		this.localLovs.put("tr11idtype", tr11idtype);
 		this.localLovs.put("tr71benefactorcategory", tr71benefactorcategory);
@@ -2751,7 +2776,6 @@ public class Repository
 		this.localLovs.put("tr71title", tr71title);
 		this.localLovs.put("ua11crtype", ua11crtype);
 		this.localLovs.put("ua11idtype", ua11idtype);
-		
 		this.localLovs.put("be11currency", be11currency);
 		this.localLovs.put("be14currency", be14currency);
 		this.localLovs.put("be71currency", be71currency);

@@ -15,6 +15,12 @@ public class FiscalYearOfSpend extends DataElement {
 	 */
 	public FiscalYearOfSpend(Object dataField) {
 		super(dataField);
+		try 
+		{
+			double year = Double.parseDouble((String) dataField);
+			this.dataField = year;
+		}
+		catch (Exception ex) {}
 		this.mandatory = false;
 		this.numeric = true;
 		this.date = false;

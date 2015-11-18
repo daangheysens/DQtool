@@ -8,6 +8,7 @@ import Elements.CRId;
 import Elements.Country;
 import Elements.DataElement;
 import Elements.Division;
+import Elements.SpendAmount;
 import Elements.SpendId;
 
 /**
@@ -147,7 +148,7 @@ public class ErrorReport {
 							else //Local LoV not defined for affiliate
 							{
 								String errKey = "401" + ldf.getAffiliate().getAffiliateName() + 
-										d.getName() + "LoV not defined"; //d.getData().toString();
+										d.getName() + d.getData().toString(); //d.getData().toString();
 								if (errors.containsKey(errKey))
 								{
 									errors.get(errKey).increaseErrorCount();
@@ -155,7 +156,7 @@ public class ErrorReport {
 								else
 								{
 									ErrorRecord error = new ErrorRecord(401, ldf.getAffiliate(),
-											d.getName(), "LoV not defined"); //d.getData().toString());
+											d.getName(), d.getData().toString()); //d.getData().toString());
 									errors.put(errKey, new ErrorRecordCount(error, errKey));
 								}			
 								rejected = true;
@@ -195,21 +196,26 @@ public class ErrorReport {
 					}
 					else if (d.getNumeric())
 					{
-						if (!(d.getData().toString().matches("[0-9]+([,.][0-9]{1,2})?")))
+						boolean formatSpendAmount = false;
+						if(!(d instanceof SpendAmount) || formatSpendAmount)
 						{
-							String errKey = "402" + ldf.getAffiliate().getAffiliateName() + 
-									d.getName() + d.getData().toString();
-							if (errors.containsKey(errKey))
+							//old: !(d.getData().toString().matches("[][0-9]+([,.][0-9]{1,2})?"))
+							if (!( d.getData() instanceof Double ))
 							{
-								errors.get(errKey).increaseErrorCount();
+								String errKey = "402" + ldf.getAffiliate().getAffiliateName() + 
+										d.getName() + d.getData().toString();
+								if (errors.containsKey(errKey))
+								{
+									errors.get(errKey).increaseErrorCount();
+								}
+								else
+								{
+									ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
+											d.getName(), d.getData().toString());
+									errors.put(errKey, new ErrorRecordCount(error, errKey));
+								}			
+								rejected = true;
 							}
-							else
-							{
-								ErrorRecord error = new ErrorRecord(402, ldf.getAffiliate(),
-										d.getName(), d.getData().toString());
-								errors.put(errKey, new ErrorRecordCount(error, errKey));
-							}			
-							rejected = true;
 						}
 					}
 					else if (d instanceof CRId || d instanceof SpendId)

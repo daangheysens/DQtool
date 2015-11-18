@@ -49,8 +49,9 @@ public class Run {
 				ldf.generateErrorReport();
 			}
 		}
-		
+
 		//CHECK SPEND - CR link
+		/*
 		for (LocalDataFile ldf : files)
 		{
 			try 
@@ -60,7 +61,7 @@ public class Run {
 				{
 					boolean found = false;	
 					LocalDataFile crFile = null;
-					
+
 					Iterator<LocalDataFile> it = files.iterator();
 
 					while(it.hasNext() && !found)
@@ -131,17 +132,18 @@ public class Run {
 				//do nothing - not a spendfile
 			}
 		}
-		
-		//COUNT REJECTED RECORDS
-				if (generateErrReport)
-				{
-					for (LocalDataFile ldf : files)
-					{
-						ldf.setRejectedRecords();
-					}
-				}
+		 */
 
-		
+		//COUNT REJECTED RECORDS
+		if (generateErrReport)
+		{
+			for (LocalDataFile ldf : files)
+			{
+				ldf.setRejectedRecords();
+			}
+		}
+
+
 
 		//PRINT T_FILE_MONITOR EXRTRACT
 		if (tFileMonitor)
@@ -190,8 +192,8 @@ public class Run {
 				System.out.println("Error in T_FILE_MONITOR extract");
 			}
 		}
-		
-		
+
+
 
 		//PRINT T_ERR_AUDIT EXTRACT		
 		if (tErrAudit)
@@ -228,7 +230,7 @@ public class Run {
 						for (ErrorRecordCount rec : toPrint)
 						{
 							writer.append(
-											"prtl" + '\t'
+									"prtl" + '\t'
 											+ rec.getErrorRecord().getAffiliate().getCountry() + '\t' 
 											+ div + '\t'
 											+ getRepository().getErrorDescription(rec.getErrorRecord().getErrorCode()) + '\t' 
@@ -248,7 +250,7 @@ public class Run {
 				System.out.println("Error in T_ERR_AUDIT extract");
 			}
 		}
-		
+
 		/*
 		//total amount of spends
 		if (tErrAudit)
@@ -269,7 +271,7 @@ public class Run {
 					{
 						SpendFile test = (SpendFile) f;
 						type = "T_SPND";
-						
+
 						String div;
 						if (f.getAffiliate().getDivision() == "11")
 							div = "PH";
@@ -277,24 +279,28 @@ public class Run {
 							div = "SZ";
 						else 
 							div = "AL";
-						
+
 						LinkedList<DataRecord> spendRecords = f.getRecords();
-						
+						double amount = 0;
 						for (DataRecord dataRec : spendRecords)
 						{
-							try
+							if (dataRec.isLoaded())
 							{
-								SpendRecord sp = (SpendRecord) dataRec;
-								
-								writer.append(
-									sp.getAffiliate().getCountry() + '\t' 
-									+ div + '\t'
-									+ type + '\t'
-									+ sp.getSpendAmount().getData().toString() + '\t' 
-									+ sp.getSpendCurrency().getData().toString() + '\n');	
+								try
+								{
+									SpendRecord sp = (SpendRecord) dataRec;
+									//double spendamount = (Double) sp.getSpendAmount().getData();
+									double spendamount = Double.parseDouble((String) sp.getSpendAmount().getData());
+									amount = amount + spendamount;
+								}
+								catch (Exception exc) {System.out.println("error in printing");}	
 							}
-							catch (Exception exc) {System.out.println("error in printing");}	
 						}
+						writer.append(
+								f.getAffiliate().getCountry() + '\t' 
+								+ div + '\t'
+								+ type + '\t'
+								+ amount + '\t' + '\n');	
 					}
 				}
 				writer.flush();

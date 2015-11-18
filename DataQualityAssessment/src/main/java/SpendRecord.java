@@ -115,6 +115,7 @@ public class SpendRecord extends DataRecord
 		this.relationpurpose = new RelationPurpose(fields.get(7));
 		this.relationtype = new RelationType(fields.get(8));
 		this.spenddate = new SpendDate(fields.get(9));
+		//TODO remove
 		this.spendamount = new SpendAmount(fields.get(10));
 		this.spendcurrency = new Currency(fields.get(11));
 		this.consentindicator = new ConsentIndicator(fields.get(12));

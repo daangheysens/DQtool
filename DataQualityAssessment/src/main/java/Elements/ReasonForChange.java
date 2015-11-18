@@ -15,7 +15,7 @@ public class ReasonForChange extends DataElement {
 	public ReasonForChange(Object dataField) 
 	{
 		super(dataField);
-		this.mandatory = false;
+		this.mandatory = true;
 		this.numeric = false;
 		this.date = false;
 		this.lov = false;
